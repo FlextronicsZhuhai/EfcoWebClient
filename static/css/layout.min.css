@@ -1,0 +1,63 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.content{
+  /* Margin top by navbar height*/
+  margin-top: 80px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+/*Square Buttons UI*/
+.btn-squared-default {
+  width: 180px !important;
+  height: 180px !important;
+  font-size: 16px;
+}
+.btn-squared-default:hover {
+  border: 3px solid white;
+  font-weight: 500;
+}
+
+.btn-squared-default-plain {
+  width: 150px !important;
+  height: 150px !important;
+  font-size: 10px;
+}
+.btn-squared-default-plain:hover {
+  border: 0px solid white;
+}

@@ -1,0 +1,32 @@
+{%extends "layout/header.html"%}
+{% block title %}Home{% endblock %}
+{% block content%}
+<div class="container text-center">
+  
+<div class="row">
+    <div class="col-lg-12">
+    <h2>EFCO VALVE Documentation</h2>
+      <p>
+        <a href="{{url_for('showValves')}}" class="btn btn-squared-default btn-primary">
+            <i class="fa fa-line-chart fa-5x"></i><br/>
+            Release Pressure &amp; Seat<br/>Leakage Test
+        </a>
+        
+        <a href="#" class="btn btn-squared-default btn-default">
+          <i class="fa fa-stethoscope fa-5x"></i><br/>
+          Body <br/>and Leak Test
+        </a>
+        <a href="#" class="btn btn-squared-default btn-danger">
+          <i class="fa fa-dashboard fa-5x"></i><br/>
+          Calibrate <br/> Pressure Transducer
+        </a>
+        <a href="#" class="btn btn-squared-default btn-success">
+          <i class="fa fa-bar-chart-o fa-5x"></i><br/>
+          See  <br/>Previous results
+        </a>
+      </p>
+    </div>
+</div>
+    
+</div>
+{% endblock%}

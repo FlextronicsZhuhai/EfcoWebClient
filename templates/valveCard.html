@@ -1,0 +1,317 @@
+
+{%extends "layout/header.html"%}
+{% block title %}Valves{% endblock %}
+{% block content%}
+<div class="container text-center">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Valve Log Card</h3>
+				</div>
+				<div class="panel-body">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										Valve
+									</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+
+									<div class="form-horizontal">
+										<legend>Valve</legend>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Valve No</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['valve_id']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Valve Type</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveType" value="{{valveCard[0]['valve_type']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Rev No.</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['rev_no']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Part No.</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['part_no']}}">
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Plant</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['plant']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Install Location</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveType" value="{{valveCard[0]['install_locations']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Manufacturer</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['manufacturer']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Manufacturer No.</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['manufacturer_no']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-lg-2" >Customer</label>
+												<div class="col-lg-4">
+													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['customer']}}">
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingTwo">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										Technical Data
+									</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="buttondropdown">DN-Inlet</label>
+												<div class="col-md-12">
+													<input id="dnOutlet" name="dnInlet" class="form-control col-md-3" placeholder="" type="text" required="">
+													<select class="form-control">
+														<option value="-1">Select one</option>
+														<option value="mm">MM</option>
+														<option value="in">Inch</option>
+													</select>
+												</div>											
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="buttondropdown">DN-Outlet</label>
+												<div class="col-md-12">
+													<input id="dnOutlet" name="dnOutlet" class="form-control col-md-3" placeholder="" type="text" required="">
+													<select class="form-control">
+														<option value="-1">Select one</option>
+														<option value="mm">MM</option>
+														<option value="in">Inch</option>
+													</select>
+												</div>											
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="buttondropdown">Set Pressure</label>
+												<div class="col-md-12">
+													<input id="setPressure" name="setPressure" class="form-control col-md-3" placeholder="" type="text" required="">
+													<select class="form-control">
+														<option value="-1">Select one</option>
+														<option value="mm">bar</option>
+														<option value="in">kg/cm<sup>2</sup></option>
+													</select>
+												</div>											
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="buttondropdown">Seat Diameter</label>
+												<div class="col-md-12">
+													<input id="seatDiameter" name="seatDiameter" class="form-control col-md-3" placeholder="" type="text" required="">
+													<select class="form-control">
+														<option value="-1">Select one</option>
+														<option value="mm">MM</option>
+														<option value="in">Inch</option>
+													</select>
+												</div>											
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="buttondropdown">A/X Measurement</label>
+												<div class="col-md-12">
+													<input id="axMeasurement" name="axMeasurement" class="form-control col-md-3" placeholder="" type="text" required="">
+												</div>											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingThree">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										Test Data
+									</a>
+								</h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Inspector</label>
+												<input class="form-control col-md-3" name="inspector" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Location</label>
+												<input class="form-control col-md-3" name="testLocation" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Medium</label>
+												<input class="form-control col-md-3" name="testMedium" />
+												<!-- This should be a dropdown -->
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Application Number</label>
+												<input class="form-control col-md-3" name="applicationNumber" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Surveyor</label>
+												<input class="form-control col-md-3" name="surveyor" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Pressure Transducer</label>
+												<input class="form-control col-md-3" name="pressureTransducer" />
+												<!-- This should be a dropdown -->
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Certification No.</label>
+												<input class="form-control col-md-3" name="certificationNumber" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Date</label>
+												<input class="form-control col-md-3" name="testDate" />
+												<!-- Use Date Picker -->
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingFour">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+										Release Pressure
+									</a>
+								</h4>
+							</div>
+							<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+								<div class="panel-body">
+									<form action="http://127.0.0.1:8001/EfcoDAQService/EfcoBackendService" method="GET" class="form-horizontal" name="releasePressureTest">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Tolerance min[%]</label>
+												<input class="form-control" id="minimumTolerance" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Tolerance max[%]</label>
+												<input class="form-control" id="maximumTolerance" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Target release Pressure</label>
+												<input class="form-control" id="targetPressure" />
+											</div>
+										</div>
+
+									</form>
+									<div class="form-horizontal col-md-4">
+										<div class="form-group">
+											<label class="control-label">Actual Release Pressure</label>
+											<input class="form-control" name="actualReleasePressure" id="actualReleasePressure" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingFive">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+										Seat Leakage
+									</a>
+								</h4>
+							</div>
+							<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body">
+
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingSix">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
+										Operations
+									</a>
+								</h4>
+							</div>
+							<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body">
+									<p>
+									<a href="#" class="btn btn-squared-default btn-primary">
+											<i class="fa fa-check fa-5x"></i><br/>
+											Apply <br/>Valve
+										</a>
+
+										<a href="#" class="btn btn-squared-default btn-default">
+											<i class="fa fa-clone fa-5x"></i><br/>
+											Copy <br/>Valve
+										</a>
+										<a href="#" class="btn btn-squared-default btn-danger">
+											<i class="fa fa-times fa-5x"></i><br/>
+											Delete <br/> Valve
+										</a>
+										<a href="#" class="btn btn-squared-default btn-info">
+											<i class="fa fa-save fa-5x"></i><br/>
+											Save  <br/>Valve
+										</a>
+										<a href="#" class="btn btn-squared-default btn-success" id="newTest">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											New  <br/>Test
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock%}
+
+
