@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	
+
 	<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css')}}" />
 
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/layout.min.css') }}" />
@@ -34,7 +34,7 @@
             <li class="active"><a href="{{url_for('index')}}">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#faq">FAQ</a></li>
-            
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -60,9 +60,9 @@
     </footer>
 
   <script type="text/javascript" src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
-  <script src="{{url_for('static',filename='js/bootstrap.min.js')}}" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"></script>
+  <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
   	{% if current_page=="valves"%}
-	
+
 	<script type="text/javascript" src="{{url_for('static',filename='js/jquery.dataTables.min.js')}}"></script>
 	<script type="text/javascript" src="{{url_for('static',filename='js/dataTables.bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{url_for('static',filename='js/valves.js')}}"></script>

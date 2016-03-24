@@ -61,3 +61,22 @@ code {
 .btn-squared-default-plain:hover {
   border: 0px solid white;
 }
+/*Square Buttons UI*/
+.valveOp-btn-squared-default {
+  width: 120px !important;
+  height: 120px !important;
+  font-size: 12px;
+}
+.valveOp-btn-squared-default:hover {
+  border: 3px solid white;
+  font-weight: 500;
+}
+
+.valveOp-btn-squared-default-plain {
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 10px;
+}
+.valveOp-btn-squared-default-plain:hover {
+  border: 0px solid white;
+}

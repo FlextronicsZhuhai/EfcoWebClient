@@ -15,7 +15,7 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading" role="tab" id="headingOne">
 								<h4 class="panel-title">
-									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 										Valve
 									</a>
 								</h4>
@@ -24,62 +24,61 @@
 								<div class="panel-body">
 
 									<div class="form-horizontal">
-										<legend>Valve</legend>
 										<div class="col-lg-6">
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Valve No</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['valve_id']}}">
+												<label class="col-lg-4 control-label" >Valve No</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['valve_id']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Valve Type</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveType" value="{{valveCard[0]['valve_type']}}">
+												<label class="col-lg-4 control-label" >Valve Type</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveType" value="{{valveCard[0]['valve_type']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Rev No.</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['rev_no']}}">
+												<label class="col-lg-4 control-label" >Rev No.</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['rev_no']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Part No.</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['part_no']}}">
+												<label class="col-lg-4 control-label" >Part No.</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['part_no']}}">
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Plant</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['plant']}}">
+												<label class="col-lg-4 control-label" >Plant</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['plant']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Install Location</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveType" value="{{valveCard[0]['install_locations']}}">
+												<label class="col-lg-4 control-label" >Install Location</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveType" value="{{valveCard[0]['install_locations']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Manufacturer</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['manufacturer']}}">
+												<label class="col-lg-4 control-label" >Manufacturer</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['manufacturer']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Manufacturer No.</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['manufacturer_no']}}">
+												<label class="col-lg-4 control-label" >Manufacturer No.</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['manufacturer_no']}}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-lg-2" >Customer</label>
-												<div class="col-lg-4">
-													<input class="form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['customer']}}">
+												<label class="col-lg-4 control-label" >Customer</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" value="{{valveCard[0]['customer']}}">
 												</div>
 											</div>
 										</div>
@@ -101,58 +100,58 @@
 									<div class="form-horizontal">
 										<div class="col-md-4">
 											<div class="form-group">
-												<label class="col-md-2 control-label" for="buttondropdown">DN-Inlet</label>
-												<div class="col-md-12">
-													<input id="dnOutlet" name="dnInlet" class="form-control col-md-3" placeholder="" type="text" required="">
-													<select class="form-control">
+												<label class="col-md-3 control-label">DN-Inlet</label>
+												<div class="col-md-9">
+													<input id="dnOutlet" name="dnInlet" class=" input-sm form-control col-md-3" placeholder="" type="text" required="">
+													<select class="input-sm form-control">
 														<option value="-1">Select one</option>
 														<option value="mm">MM</option>
 														<option value="in">Inch</option>
 													</select>
-												</div>											
+												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-2 control-label" for="buttondropdown">DN-Outlet</label>
-												<div class="col-md-12">
-													<input id="dnOutlet" name="dnOutlet" class="form-control col-md-3" placeholder="" type="text" required="">
-													<select class="form-control">
+												<label class="col-md-3 control-label">DN-Outlet</label>
+												<div class="col-md-9">
+													<input id="dnOutlet" name="dnOutlet" class="input-sm form-control col-md-3" placeholder="" type="text" required="">
+													<select class="input-sm form-control">
 														<option value="-1">Select one</option>
 														<option value="mm">MM</option>
 														<option value="in">Inch</option>
 													</select>
-												</div>											
+												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<label class="col-md-2 control-label" for="buttondropdown">Set Pressure</label>
-												<div class="col-md-12">
-													<input id="setPressure" name="setPressure" class="form-control col-md-3" placeholder="" type="text" required="">
-													<select class="form-control">
+												<label class="col-md-3 control-label" for="buttondropdown">Set Pressure</label>
+												<div class="col-md-9">
+													<input id="setPressure" name="setPressure" class="input-sm form-control col-md-3" placeholder="" type="text" required="">
+													<select class="input-sm form-control">
 														<option value="-1">Select one</option>
 														<option value="mm">bar</option>
 														<option value="in">kg/cm<sup>2</sup></option>
 													</select>
-												</div>											
+												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-2 control-label" for="buttondropdown">Seat Diameter</label>
-												<div class="col-md-12">
-													<input id="seatDiameter" name="seatDiameter" class="form-control col-md-3" placeholder="" type="text" required="">
-													<select class="form-control">
+												<label class="col-md-3 control-label" for="buttondropdown">Seat Diameter</label>
+												<div class="col-md-9">
+													<input id="seatDiameter" name="seatDiameter" class="input-sm form-control col-md-3" placeholder="" type="text" required="">
+													<select class="input-sm form-control">
 														<option value="-1">Select one</option>
 														<option value="mm">MM</option>
 														<option value="in">Inch</option>
 													</select>
-												</div>											
+												</div>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<label class="col-md-2 control-label" for="buttondropdown">A/X Measurement</label>
-												<div class="col-md-12">
-													<input id="axMeasurement" name="axMeasurement" class="form-control col-md-3" placeholder="" type="text" required="">
-												</div>											
+												<label class="col-md-3 control-label" for="buttondropdown">A/X Measurement</label>
+												<div class="col-md-9">
+													<input id="axMeasurement" name="axMeasurement" class="input-sm form-control col-md-3" placeholder="" type="text" required="">
+												</div>
 											</div>
 										</div>
 									</div>
@@ -173,44 +172,44 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Inspector</label>
-												<input class="form-control col-md-3" name="inspector" />
+												<input class="input-sm form-control col-md-3" name="inspector" />
 											</div>
 											<div class="form-group">
 												<label class="control-label">Test Location</label>
-												<input class="form-control col-md-3" name="testLocation" />
+												<input class="input-sm form-control col-md-3" name="testLocation" />
 											</div>
 											<div class="form-group">
 												<label class="control-label">Test Medium</label>
-												<input class="form-control col-md-3" name="testMedium" />
+												<input class="input-sm form-control col-md-3" name="testMedium" />
 												<!-- This should be a dropdown -->
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Application Number</label>
-												<input class="form-control col-md-3" name="applicationNumber" />
+												<input class="input-sm form-control col-md-3" name="applicationNumber" />
 											</div>
 											<div class="form-group">
 												<label class="control-label">Surveyor</label>
-												<input class="form-control col-md-3" name="surveyor" />
+												<input class="input-sm form-control col-md-3" name="surveyor" />
 											</div>
 											<div class="form-group">
 												<label class="control-label">Pressure Transducer</label>
-												<input class="form-control col-md-3" name="pressureTransducer" />
+												<input class="input-sm form-control col-md-3" name="pressureTransducer" />
 												<!-- This should be a dropdown -->
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Certification No.</label>
-												<input class="form-control col-md-3" name="certificationNumber" />
+												<input class="input-sm form-control col-md-3" name="certificationNumber" />
 											</div>
 											<div class="form-group">
 												<label class="control-label">Test Date</label>
-												<input class="form-control col-md-3" name="testDate" />
+												<input class="input-sm form-control col-md-3" name="testDate" />
 												<!-- Use Date Picker -->
 											</div>
-											
+
 										</div>
 									</div>
 								</div>
@@ -230,17 +229,17 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Tolerance min[%]</label>
-												<input class="form-control" id="minimumTolerance" />
+												<input class="input-sm form-control" id="minimumTolerance" />
 											</div>
 											<div class="form-group">
 												<label class="control-label">Tolerance max[%]</label>
-												<input class="form-control" id="maximumTolerance" />
+												<input class="input-sm form-control" id="maximumTolerance" />
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Target release Pressure</label>
-												<input class="form-control" id="targetPressure" />
+												<input class="input-sm form-control" id="targetPressure" />
 											</div>
 										</div>
 
@@ -248,7 +247,7 @@
 									<div class="form-horizontal col-md-4">
 										<div class="form-group">
 											<label class="control-label">Actual Release Pressure</label>
-											<input class="form-control" name="actualReleasePressure" id="actualReleasePressure" />
+											<input class="input-sm form-control" name="actualReleasePressure" id="actualReleasePressure" />
 										</div>
 									</div>
 								</div>
@@ -263,9 +262,29 @@
 								</h4>
 							</div>
 							<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-								<div class="panel-body">
 
-								</div>
+									<div class="panel-body">
+										<form action="#" method="GET" class="form-horizontal" name="releasePressureTest">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="control-label">Time</label>
+													<input class="input-sm form-control" id="time" />
+												</div>
+												<div class="form-group">
+													<label class="control-label">Percentage of Release Pressure</label>
+													<input class="input-sm form-control" id="percentageRelease" />
+												</div>
+											</div>
+
+										</form>
+										<div class="form-horizontal col-md-4">
+											<div class="form-group">
+												<label class="control-label">Final Pressure</label>
+												<input class="input-sm form-control" name="actualReleasePressure" id="finalPressure" />
+											</div>
+										</div>
+									</div>
+
 							</div>
 						</div>
 						<div class="panel panel-primary">
@@ -279,26 +298,34 @@
 							<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
 								<div class="panel-body">
 									<p>
-									<a href="#" class="btn btn-squared-default btn-primary">
-											<i class="fa fa-check fa-5x"></i><br/>
-											Apply <br/>Valve
-										</a>
-
-										<a href="#" class="btn btn-squared-default btn-default">
+									  <a href="#" class="btn valveOp-btn-squared-default btn-default">
 											<i class="fa fa-clone fa-5x"></i><br/>
 											Copy <br/>Valve
 										</a>
-										<a href="#" class="btn btn-squared-default btn-danger">
+										<a href="#" class="btn valveOp-btn-squared-default btn-danger">
 											<i class="fa fa-times fa-5x"></i><br/>
 											Delete <br/> Valve
 										</a>
-										<a href="#" class="btn btn-squared-default btn-info">
+										<a href="#" class="btn valveOp-btn-squared-default btn-info">
 											<i class="fa fa-save fa-5x"></i><br/>
 											Save  <br/>Valve
 										</a>
-										<a href="#" class="btn btn-squared-default btn-success" id="newTest">
+										<a href="#" class="btn valveOp-btn-squared-default btn-warning" id="startRPVI">
 											<i class="fa fa-plus fa-5x"></i><br/>
-											New  <br/>Test
+											Start RP <br>Application
+										</a>
+										<a href="#" class="btn valveOp-btn-squared-default btn-warning" id="startSLVI">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Start SL <br>Application
+										</a>
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="rpTest">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Release  <br/>Pressure
+										</a>
+
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="slTest">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Seat  <br/>Leakage
 										</a>
 									</p>
 								</div>
@@ -313,5 +340,3 @@
 </div>
 
 {% endblock%}
-
-
