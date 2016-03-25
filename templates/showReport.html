@@ -1,0 +1,273 @@
+{%extends "layout/header.html"%}
+{%block content%}
+<style media="screen">
+@media print{
+  body
+{
+    margin: 0px 0px 0px 0px;
+}
+
+div#report {
+  margin: 10px 10px 10px 10px;
+  page-break-before: none;
+  page-break-after: none;
+  page-break-inside: avoid;
+}
+}
+</style>
+<div class="container text-center">
+  <div class="row">
+    <button type="button" name="printButton" class="btn btn-primary btn-md pull-right" onclick="printContent('report');"><i class="fa fa-print fa-2x"></i>Print</button>
+    <div id="report" class="print">
+    <div class="text-center">
+      <h3>Report Generation: Pressure Safety Valve</h3>
+    </div>
+    <div class="well col-md-12">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <td class="col-md-4 text-center">EFCO Maschinenbau GmbH <br> Otto-Brenner-Str.5-7<br> 52353 Duren </td>
+            <td class="col-md-4 text-center">Test Report Safety Valves</td>
+            <td class="col-md-4 text-center"><strong>EFCO INDIA</strong> </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <td class="text-left">
+              Plant
+            </td>
+            <td>
+              Plant number
+            </td>
+            <td class="text-right">
+              Certification Number
+            </td>
+            <td>
+              certi number
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">
+              Valve Type
+            </td>
+            <td>
+              Valve Type
+            </td>
+            <td class="text-right">
+              Creation Date
+            </td>
+            <td>
+              Date
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">
+              Valve No.
+            </td>
+            <td>
+              valveNumber
+            </td>
+            <td class="text-right">
+              Customer
+            </td>
+            <td>
+              Customer name
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">
+              Rev No
+            </td>
+            <td>
+              Rev number
+            </td>
+            <td class="text-right">
+              Application No
+            </td>
+            <td>
+              app no.
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">
+              Part No.
+            </td>
+            <td>
+              Partno
+            </td>
+            <td class="text-right">
+              Manufacturer
+            </td>
+            <td>
+              manufacturer
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <p class="lead text-info">
+          Test Status: Pass/Fail
+        </p>
+      </div>
+      <legend>Technical data</legend>
+      <table class="table table-bordered table-responsive">
+        <tr>
+          <td>
+            DN Inlet(inch/mm)
+          </td>
+          <td>
+            DN Outlet(inch/mm)
+          </td>
+          <td>
+            Set Pressure(bar/kgpercm2)
+          </td>
+          <td>
+            Seat diameter(inch/mm)
+          </td>
+          <td>
+            A/X measurement(inch/mm)
+          </td>
+        </tr>
+        <tr>
+        <td>Value</td>
+        <td>Value</td>
+        <td>Value</td>
+        <td>Value</td>
+        <td>Value</td>
+        </tr>
+      </table>
+      <div class="col-md-6">
+        <table class="table table-bordered table-responsive">
+          <tbody>
+            <tr>
+              <td>
+                Target Release Pressure
+              </td>
+              <td>
+                Value
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Actual Release Pressure
+              </td>
+              <td>
+                Value
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  Target Release Pressure
+              </td>
+              <td>
+                Value
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6" style="page-break-after:always;">
+        <table class="table table-bordered table-responsive">
+          <tbody>
+            <tr>
+              <td>
+                Target Release Pressure
+              </td>
+              <td>
+                Value
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Leakage
+              </td>
+              <td>
+                Value
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Medium
+              </td>
+              <td>
+                Value
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <legend  class="text-left">Release Pressure Test</legend>
+      <img class="img-responsive" src="http://localhost:5000/static/reports/releasePressure/rpImg.jpg" alt="Release Pressure Graph"/>
+      <legend class="text-left">Seat Leakage Test</legend>
+      <img class="img-responsive" src="http://localhost:5000/static/reports/rpseatLeakage/slImg.jpg" alt="Seat Leakage Graph" style="height:350px;"/>
+      <br>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>
+              Comment
+            </td>
+            <td>
+              Value
+            </td>
+            <td>
+              Inspector
+            </td>
+            <td>
+              Value
+            </td>
+          </tr>
+          <tr>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+              Test Date:
+            </td>
+            <td>
+              Date
+            </td>
+          </tr>
+          <tr>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+              Location of test
+            </td>
+            <td>
+              Value
+            </td>
+          </tr>
+          <tr>
+          <td>
+            Surveyor
+          </td>
+            <td>
+              Value
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+  </div>
+</div>
+<script>
+function printContent(el){
+var restorePage = document.body.innerHTML;
+var printContent = document.getElementById(el).innerHTML;
+document.body.innerHTML = printContent;
+window.print();
+document.body.innerHTML = restorePage;
+}
+</script>
+{% endblock %}

@@ -51,7 +51,7 @@ $(document).ready(function(){
 	request.done(function( msg ) {
 		console.log(msg);
 		$( "#actualReleasePressure" ).val( msg.maximumPressure);
-
+		
 	});
 
 	request.fail(function( jqXHR, textStatus ) {

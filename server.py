@@ -1,6 +1,7 @@
 from flask import Flask,render_template,url_for
 from flask import request, session, g, redirect, abort, flash,jsonify
 import os
+from bs4 import BeautifulSoup
 import subprocess
 app = Flask(__name__,static_folder='static',static_url_path='/static')
 import pymysql.cursors
@@ -42,11 +43,20 @@ def startRPVI():
 
 @app.route('/startSLVI',methods=['GET'])
 def startSLVI():
+
     command='C:\\Users\\kranthikiran\\Documents\\EFCO\\builds\EFCOTests\\seatLeakage\\seatLeakage.exe'
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+    print process.pid
+    pid=process.pid
     process.wait()
-    print process.returncode
     return jsonify(done=200)
+
+@app.route('/showReport')
+def showrpReport():
+
+    return render_template('showReport.html')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
