@@ -3,15 +3,26 @@
 {% block title %}Valves{% endblock %}
 {% block content%}
 <div class="container text-center">
+	<div class="alert alert-dismissible alert-info" style="display:none;" name="alert-box">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<p name="message">
 
+		</p>
+	</div>
 	<div class="row">
+
 		<div class="col-lg-12">
+
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-				<h3 class="panel-title">Search Valves</h3>
+					<h3 class="panel-title clearfix">Search Valves
+
+						<button type="button" name="deleteValve" id="deleteValve" class="btn-xs btn-danger pull-right">Delete Valve</button>
+						<button type="button" name="createValve" class="btn-xs btn-success pull-right" data-toggle="modal" data-target="#createModal">Create Valve</button>
+					</h3>
 				</div>
 				<div class="panel-body">
-					<button type="button" name="createValve" class="btn btn-info pull-right">Create Valve</button>
+
 					<table class="table table-bordered table-responsive table-hovered table-condensed" id="valves">
 						<thead>
 							<tr>
@@ -22,27 +33,25 @@
 								<td>Customer</td>
 								<td>Manufacturer</td>
 								<td>Manufacture Number</td>
+								<td>Show</td>
 							</tr>
 						</thead>
 						<tbody>
-							{% if valves%}
-						{%for row in valves%}
-						<tr>
 
-							<td><a href="/valve/{{row['valve_id']}}" class="btn btn-info">{{row['valve_id']}}</a></td>
-							<td>{{row['valve_type']}}</td>
-							<td>{{row['rev_no']}}</td>
-							<td>{{row['install_locations']}}</td>
-							<td>{{row['customer']}}</td>
-							<td>{{row['manufacturer']}}</td>
-							<td>{{row['manufacturer_no']}}</td>
-						</tr>
-						{%endfor%}
-						{%else%}
-						<p>
-							No valves are recorded
-						</p>
-						{%endif%}
+							{%for row in valves%}
+							<tr>
+
+								<td>{{row['valve_id']}}</td>
+								<td>{{row['valve_type']}}</td>
+								<td>{{row['rev_no']}}</td>
+								<td>{{row['install_locations']}}</td>
+								<td>{{row['customer']}}</td>
+								<td>{{row['manufacturer']}}</td>
+								<td>{{row['manufacturer_no']}}</td>
+								<td><a href="/valve/{{row['valve_id']}}" class="btn-sm btn-info" style="text-decoration:none;"><i class="fa fa-check"></i>Show valve</a></td>
+							</tr>
+							{%endfor%}
+
 
 						</tbody>
 					</table>
@@ -52,4 +61,310 @@
 	</div>
 
 </div>
-{% endblock%}
+<!-- Create Modal -->
+<div id="createModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Create Valve</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="http://localhost:5000/createValve" method="POST">
+					<fieldset>
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Create Valve</h3>
+							</div>
+							<div class="panel-body">
+								<div class="col-md-6">
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="valve_id">Valve ID</label>
+										<div class="col-md-8">
+											<input name="valve_id" id="valve_id" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="valve_type">Valve Type</label>
+										<div class="col-md-8">
+											<input name="valve_type" id="valve_type" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="rev_no">Rev No.</label>
+										<div class="col-md-8">
+											<input name="rev_no" id="rev_no" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="part_no">Part No.</label>
+										<div class="col-md-8">
+											<input name="part_no" id="part_no" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="install_locations">Install Locations</label>
+										<div class="col-md-8">
+											<input name="install_locations" id="install_locations" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="customer">Customer</label>
+										<div class="col-md-8">
+											<input name="customer" id="customer" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="manufacturer">Manufacturer</label>
+										<div class="col-md-8">
+											<input name="manufacturer" id="manufacturer" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="manufacturer_no">Manufacturer No.</label>
+										<div class="col-md-8">
+											<input name="manufacturer_no" id="manufacturer_no" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+
+									<!-- Text input-->
+									<div class="form-group">
+										<label class="col-md-4 control-label" for="plant">Plant</label>
+										<div class="col-md-8">
+											<input name="plant" id="plant" type="text" placeholder="" class="form-control input-sm" required="">
+
+										</div>
+									</div>
+								</div>
+							</div></div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Technical Data</h3>
+								</div>
+								<div class="panel-body">
+									<form class="form-horizontal col-sm-12">
+										<fieldset>
+											<!-- change col-sm-N to reflect how you would like your column spacing (http://getbootstrap.com/css/#forms-control-sizes) -->
+											<div class="col-sm-6">
+
+												<!-- Text input http://getbootstrap.com/css/#forms -->
+												<div class="form-group">
+													<label for="dnInlet" class="control-label col-sm-4">DN Inlet</label>
+													<div class="col-sm-8">
+														<input type="text" class="form-control input-sm" name="dnInlet" placeholder="" required="">
+
+													</div>
+												</div>
+												<!-- Fuel UX Select http://getfuelux.com/javascript.html#selectlist -->
+												<div class="form-group">
+													<label class="control-label col-sm-4" for="dnInletUnit">DN Inlet Unit</label>
+													<div class="controls text-left col-sm-8">
+														<select class="form-control input-sm" name="dnInletUnit">
+															<option value="-1">Select one</option>
+															<option value="mm">MM</option>
+															<option value="inch">Inch</option>
+														</select>
+													</div>
+												</div>
+												<!-- Text input http://getbootstrap.com/css/#forms -->
+												<div class="form-group">
+													<label for="dnOutlet" class="control-label col-sm-4">DN Outlet</label>
+													<div class="col-sm-8">
+														<input type="text" class="form-control input-sm" name="dnOutlet" placeholder="" required="">
+
+													</div>
+												</div>
+												<!-- Fuel UX Select http://getfuelux.com/javascript.html#selectlist -->
+												<div class="form-group">
+													<label class="control-label col-sm-4" for="dnOutletUnit">DN Outlet Unit</label>
+													<div class="controls text-left col-sm-8">
+														<select class="form-control input-sm" name="dnOutletUnit">
+															<option value="-1">Select one</option>
+															<option value="mm">MM</option>
+															<option value="inch">Inch</option>
+														</select>
+
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<!-- Text input http://getbootstrap.com/css/#forms -->
+												<div class="form-group">
+													<label for="setPressure" class="control-label col-sm-4">Set Pressure</label>
+													<div class="col-sm-8">
+														<input type="text" class="form-control input-sm" name="setPressure" placeholder="" required="">
+
+													</div>
+												</div>
+												<!-- Fuel UX Select http://getfuelux.com/javascript.html#selectlist -->
+												<div class="form-group">
+													<label class="control-label col-sm-4" for="setPressureUnit">Set Pressure Unit</label>
+													<div class="controls text-left col-sm-8">
+														<select class="form-control input-sm" name="setPressureUnit">
+															<option value="-1">Select one</option>
+															<option value="bar">bar</option>
+															<option value="kgpercm2">Kg/CM^2</option>
+														</select>
+
+													</div>
+												</div>
+												<!-- Text input http://getbootstrap.com/css/#forms -->
+												<div class="form-group">
+													<label for="seatDiameter" class="control-label col-sm-4">Seat Diameter</label>
+													<div class="col-sm-8">
+														<input type="text" class="form-control input-sm" name="seatDiameter" placeholder="" required="">
+
+													</div>
+												</div>
+												<!-- Text input http://getbootstrap.com/css/#forms -->
+												<div class="form-group">
+													<label for="axMeasurement" class="control-label col-sm-4">A/X Measurement</label>
+													<div class="col-sm-8">
+														<input type="text" class="form-control input-sm" name="axMeasurement" placeholder="" required="">
+
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</form>
+
+								</div>
+							</div>
+
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Test Data</h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<fieldset>
+
+
+											<!-- change col-sm-N to reflect how you would like your column spacing (http://getbootstrap.com/css/#forms-control-sizes) -->
+
+										<div class="col-md-6">
+
+
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="inspector" class="control-label col-sm-4">Inspector</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="inspector" placeholder="" required="">
+
+												</div>
+											</div>
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="testLocation" class="control-label col-sm-4">Test Location</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="testLocation" placeholder="" required="">
+
+												</div>
+											</div>
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="testMedium" class="control-label col-sm-4">Test Medium</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="testMedium" placeholder="" required="">
+
+												</div>
+											</div>
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="applicationNumber" class="control-label col-sm-4">Application Number</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="applicationNumber" placeholder="" required="">
+
+												</div>
+											</div>
+
+										</div>
+										<div class="col-md-6">
+
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="surveyor" class="control-label col-sm-4">Surveyor</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="surveyor" placeholder="" required="">
+
+												</div>
+											</div>
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="pressureTransducer" class="control-label col-sm-4">Pressure Transducer</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="pressureTransducer" placeholder="" required="">
+
+												</div>
+											</div>
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="certificationNumber" class="control-label col-sm-4">Certification Number</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="certificationNumber" placeholder="" required="">
+
+												</div>
+											</div>
+											<!-- Text input http://getbootstrap.com/css/#forms -->
+											<div class="form-group">
+												<label for="testDate" class="control-label col-sm-4">Test Date</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="testDate" placeholder="" required="">
+
+												</div>
+											</div>
+
+										</div>
+										</fieldset>
+									</div>
+
+								</div>
+							</div>
+							<!-- Button (Double) -->
+							<div class="form-group">
+								<label class="col-md-4 control-label" for=""></label>
+								<div class="col-md-8">
+									<button name="submit-cform"  class="btn btn-success">Submit</button>
+									<button name="reset-cform" id="reset-form" class="btn btn-danger" type="reset">Reset</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	{% endblock%}
