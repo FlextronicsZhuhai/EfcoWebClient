@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	var editing=0;
 	$('#editValve').on('click',function(e){
 		e.preventDefault();
@@ -69,8 +70,8 @@ $(document).ready(function(){
 				"dnInletUnit":$('#dnInletUnit').val(),
 				"dnOutlet":$('#dnOutlet').val(),
 				"dnOutletUnit":$('#dnOutletUnit').val(),
-				"setPressure":$('#setPressure').val(),
-				"setPressureUnit":$('#setPressureUnit').val(),
+				"seatPressure":$('#seatPressure').val(),
+				"seatPressureUnit":$('#seatPressureUnit').val(),
 				"seatDiameter":$('#seatDiameter').val(),
 				"axMeasurement":$('#axMeasurement').val()
 			}
@@ -87,9 +88,23 @@ $(document).ready(function(){
 	});
 	$('#startRPVI').on('click',function(event){
 		event.preventDefault();
-		alert("hello");
 		var confirm=$.ajax({
 			url:"/startRPVI",
+			method:"GET",
+			headers:{'Access-Control-Allow-Origin':'*'},
+			crossDomain: true
+		});
+		confirm.done(function(msg){
+		console.log(msg);
+		});
+		confirm.fail(function(jqXHR,textStatus){
+			alert( "Request failed: " + textStatus );
+		});
+	});
+	$('#startSLVI').on('click',function(event){
+		event.preventDefault();
+		var confirm=$.ajax({
+			url:"/startSLVI",
 			method:"GET",
 			headers:{'Access-Control-Allow-Origin':'*'},
 			crossDomain: true
@@ -101,11 +116,11 @@ $(document).ready(function(){
 			alert( "Request failed: " + textStatus );
 		});
 	});
-	$('#startSLVI').on('click',function(event){
+	$('#startBTVI').on('click',function(event){
 		event.preventDefault();
-		alert("hello");
+
 		var confirm=$.ajax({
-			url:"/startSLVI",
+			url:"/startBTVI",
 			method:"GET",
 			headers:{'Access-Control-Allow-Origin':'*'},
 			crossDomain: true
@@ -124,20 +139,21 @@ $(document).ready(function(){
 		var maximumTolerance=$('#maximumTolerance').val();
 
 	var request = $.ajax({
-		url: "http://127.0.0.1:8023/EfcoDataAcquisition/releasePressure",
+		url: "http://127.0.0.1:8023/EfcoWebService/releasePressure",
 		method: "GET",
 		data: {
 			"targetPressure":targetPressure,
 			"maximumTolerance": maximumTolerance,
 			"minimumTolerance": minimumTolerance
-		},
-		crossDomain: true
-	});
+		}
+		});
 
 	request.done(function( msg ) {
 		console.log(msg);
 		$( "#actualReleasePressure" ).val( msg.maximumPressure);
-
+		$('#seatLeakage').show();
+		$('#startSLVI').show();
+		$('#slTest').show();
 	});
 
 	request.fail(function( jqXHR, textStatus ) {
@@ -148,11 +164,15 @@ $(document).ready(function(){
 	$('#slTest').on('click',function(event){
 		event.preventDefault();
 		var time=$('#time').val();
+		var percentageRelease=~~$('#percentageRelease').val();
+		if(percentageRelease>0)
 		var testPressure=$('#actualReleasePressure').val()*(~~($('#percentageRelease').val()))/100;
-
+		else {
+			var testPressure=$('#testPressure').val();
+		}
 
 	var request = $.ajax({
-		url: "http://127.0.0.1:8023/EfcoDataAcquisition/seatLeakage",
+		url: "http://127.0.0.1:8023/EfcoWebService/seatLeakageTest",
 		method: "GET",
 		data: {
 			"time":time,
@@ -171,5 +191,36 @@ $(document).ready(function(){
 		alert( "Request failed: " + textStatus );
 	});
 	});
+	$('#btTest').on('click',function(event){
+		event.preventDefault();
+		var time=$('#testDuration').val();
+		var tolerance=$('#tolerance').val();
+		var nominalPressure=$('#nominalPressure').val()*(~~(tolerance))/100;
 
+
+	var request = $.ajax({
+		url: "http://127.0.0.1:8023/EfcoWebService/bodyTest",
+		method: "GET",
+		data: {
+			"time":time,
+			"nominalPressure":nominalPressure,
+		},
+		crossDomain: true
+	});
+
+	request.done(function( msg ) {
+		console.log(msg.actualPressure);
+		$( "#actualPressure" ).val( msg.actualPressure);
+		$('#seatLeakage').show();
+		$('#startSLVI').show();
+		$('#slTest').show();
+	});
+
+	request.fail(function( jqXHR, textStatus ) {
+		alert( "Request failed: " + textStatus );
+	});
+	});
+	$(function () {
+			$('#testDatepicker').datetimepicker();
+	});
 });

@@ -1,6 +1,10 @@
 {%extends "layout/header.html"%}
 {%block content%}
 <style media="screen">
+.table-nonfluid {
+   width: auto !important;
+}
+
 @media print{
   body
 {
@@ -11,6 +15,10 @@ margin-top: 2cm;
 margin-right: 2cm;
 margin-bottom: 1.5cm;
 margin-left: 2cm
+}
+table{
+  table-layout: fixed;
+word-wrap: break-word;
 }
 
 div#report {
@@ -29,17 +37,21 @@ div#report {
     <div class="text-center">
       <h3>Report Generation: Pressure Safety Valve</h3>
     </div>
-    <div class="well col-md-12">
-      <table class="table table-bordered table-striped">
+    <div class="well col-xs-12">
+      <div class="row">
+      <table class="table table-bordered table-striped table-condensed">
         <tbody>
           <tr>
-            <td class="col-md-4 text-center">EFCO Maschinenbau GmbH <br> Otto-Brenner-Str.5-7<br> 52353 Duren </td>
-            <td class="col-md-4 text-center">Test Report Safety Valves</td>
-            <td class="col-md-4 text-center"><strong>EFCO INDIA</strong> </td>
+            <td class="col-xs-4 text-center">EFCO Maschinenbau GmbH <br> Otto-Brenner-Str.5-7<br> 52353 Duren </td>
+            <td class="col-xs-4 text-center">Test Report Safety Valves</td>
+            <td class="col-xs-4 text-center"><strong>EFCO INDIA</strong> </td>
           </tr>
         </tbody>
       </table>
-      <table class="table table-bordered table-striped">
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+      <table class="table table-bordered table-striped table-nonfluid">
         <tbody>
           <tr>
             <td class="text-left">
@@ -113,39 +125,52 @@ div#report {
           </tr>
         </tbody>
       </table>
+    </div>
+      <span class="col-xs-6">
+      <table class="table table-bordered table-responsive table-nonfluid">
+        <tr>
+          <td>
+            DN Inlet(inch/mm) {{valveTechCard.dnInletUnit}}
+          </td>
+          <td>{{valveTechCard.dnInlet}}</td>
+        </tr>
+        <tr>
+          <td>
+            DN Outlet(inch/mm) {{valveTechCard.dnOutletUnit}}
+          </td>
+          <td>{{valveTechCard.dnOutlet}}</td>
+
+        </tr>
+        <tr>
+          <td>
+            Set Pressure(bar/kgpercm2) {{valveTechCard.seatPressureUnit}}
+          </td>
+          <td>{{valveTechCard.seatPressure}}</td>
+        </tr>
+        <tr>
+          <td>
+            Seat diameter(inch/mm)
+          </td>
+          <td>{{valveTechCard.seatDiameter}}</td>
+        </tr>
+        <tr>
+          <td>
+            A/X measurement(inch/mm)
+          </td>
+          <td>{{valveTechCard.axMeasurement}}</td>
+        </tr>
+
+      </table>
+    </span>
+  </div>
       <div class="text-center">
         <p class="lead text-info">
           Test Status: Pass/Fail
         </p>
       </div>
-      <legend>Technical data</legend>
-      <table class="table table-bordered table-responsive">
-        <tr>
-          <td>
-            DN Inlet(inch/mm) {{valveTechCard.dnInletUnit}}
-          </td>
-          <td>
-            DN Outlet(inch/mm) {{valveTechCard.dnOutletUnit}}
-          </td>
-          <td>
-            Set Pressure(bar/kgpercm2) {{valveTechCard.setPressureUnit}}
-          </td>
-          <td>
-            Seat diameter(inch/mm)
-          </td>
-          <td>
-            A/X measurement(inch/mm)
-          </td>
-        </tr>
-        <tr>
-        <td>{{valveTechCard.dnInlet}}</td>
-        <td>{{valveTechCard.dnOutlet}}</td>
-        <td>{{valveTechCard.setPressure}}</td>
-        <td>{{valveTechCard.seatDiameter}}</td>
-        <td>{{valveTechCard.axMeasurement}}</td>
-        </tr>
-      </table>
-      <div class="col-md-6">
+      <!-- <legend>Technical data</legend> -->
+
+      <div class="col-xs-6">
         <table class="table table-bordered table-responsive">
           <tbody>
             <tr>
@@ -175,7 +200,7 @@ div#report {
           </tbody>
         </table>
       </div>
-      <div class="col-md-6" style="page-break-after:always;">
+      <div class="col-xs-6" style="page-break-after:always;">
         <table class="table table-bordered table-responsive">
           <tbody>
             <tr>
@@ -206,11 +231,11 @@ div#report {
         </table>
       </div>
       <legend  class="text-left">Release Pressure and Seat Leakage Test</legend>
-      <img src="http://localhost:5000/static/reports/releasePressure/rpImg.jpg" alt="Release Pressure Graph"/>
+      <img src="http://localhost:5000/static/reports/releasePressure/rpImg.jpg" alt="Release Pressure Graph" style="height:200px"/>
 
-      <img  src="http://localhost:5000/static/reports/rpseatLeakage/slImg.jpg" alt="Seat Leakage Graph" style="height:340px;"/>
+      <img  src="http://localhost:5000/static/reports/rpseatLeakage/slImg.jpg" alt="Seat Leakage Graph" style="height:200px;"/>
       <br><br>
-      <table class="table table-bordered">
+      <table class="table table-bordered table-condensed">
         <tbody>
           <tr>
             <td>

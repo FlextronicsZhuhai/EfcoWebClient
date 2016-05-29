@@ -1,0 +1,462 @@
+
+{%extends "layout/header.html"%}
+{% block title %}Valves{% endblock %}
+{% block content%}
+<div class="container text-center">
+
+	<div class="row">
+		<div class="col-lg-12">
+				<div class="alert alert-dismissible alert-info" style="display:none;" id="alert-box">
+				  <button type="button" class="close" data-dismiss="alert">&times;</button>
+				  <p id="message">
+
+				  </p>
+				</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title clearfix">Valve Log Card
+					<button type="button" id="editValve" class="btn-xs btn-warning pull-right"><i class="fa fa-pencil"></i> Edit Valve</button>
+				</h3>
+				</div>
+				<div class="panel-body">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										Valve
+									</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+
+									<div class="form-horizontal">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Valve No</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveNumber" id="valveNumber" value="{{valveCard['valve_id']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Valve Type</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="valveType" id="valveType" value="{{valveCard['valve_type']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Rev No.</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" name="rev_no" id="rev_no" value="{{valveCard['rev_no']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Part No.</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" id="part_no" value="{{valveCard['part_no']}}">
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Plant</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" id="plant" value="{{valveCard['plant']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Install Location</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" id="install_locations" value="{{valveCard['install_locations']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Manufacturer</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" id="manufacturer" value="{{valveCard['manufacturer']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Manufacturer No.</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" id="manufacturer_no" value="{{valveCard['manufacturer_no']}}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-4 control-label" >Customer</label>
+												<div class="col-lg-6">
+													<input class="input-sm form-control input-md" disabled="disabled" id="customer" value="{{valveCard['customer']}}">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<button type="button" name="updateValveData" id="updateValveData" class="btn-sm btn-info pull-right col-md-3" style="display:none;"><i class="fa fa-spinner"></i>Update Valve</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingTwo">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										Technical Data
+									</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="col-md-3 control-label">DN-Inlet</label>
+												<div class="col-md-9">
+													<input id="dnInlet" name="dnInlet" class=" input-sm form-control col-md-3" placeholder="" value="{{valveTechCard.dnInlet}}" type="text" required="" disabled="disabled">
+													<select disabled="disabled" class="input-sm form-control">
+														<option value="-1">Select one</option>
+														<option value="mm" {%if valveTechCard['dnInletUnit']=="mm"%}selected{%endif%}>MM</option>
+														<option value="in"{%if valveTechCard['dnInletUnit']=="inch"%}selected{%endif%}>Inch</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">DN-Outlet</label>
+												<div class="col-md-9">
+													<input id="dnOutlet" name="dnOutlet" class="input-sm form-control col-md-3" placeholder="" value="{{valveTechCard.dnOutlet}}" type="text" required="" disabled="disabled">
+													<select disabled="disabled" class="input-sm form-control">
+														<option value="-1">Select one</option>
+														<option value="mm" {%if valveTechCard['dnOutletUnit']=="mm"%}selected{%endif%}>MM</option>
+														<option value="in" {%if valveTechCard['dnOutletUnit']=="inch"%}selected{%endif%}>Inch</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="col-md-3 control-label" for="buttondropdown">Set Pressure</label>
+												<div class="col-md-9">
+													<input id="seatPressure" name="seatPressure" class="input-sm form-control col-md-3" placeholder="" value="{{valveTechCard.seatPressure}}" type="text" required="" disabled="disabled">
+													<select disabled="disabled" class="input-sm form-control">
+														<option value="-1">Select one</option>
+														<option value="mm" {%if valveTechCard.seatPressureUnit=="bar"%}selected{%endif%}>bar</option>
+														<option value="in" {%if valveTechCard.seatPressureUnit=="kgpercm2"%}selected{%endif%}>kg/cm<sup>2</sup></option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label" for="buttondropdown">Seat Diameter</label>
+												<div class="col-md-9">
+													<input id="seatDiameter" name="seatDiameter" class="input-sm form-control col-md-3" placeholder="" type="text" required="" value="{{valveTechCard.seatDiameter}}" disabled="disabled">
+													<!-- <select class="input-sm form-control">
+														<option value="-1">Select one</option>
+														<option value="mm">MM</option>
+														<option value="in">Inch</option>
+													</select> -->
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="col-md-3 control-label" for="buttondropdown">A/X Measurement</label>
+												<div class="col-md-9">
+													<input value="{{valveTechCard.axMeasurement}}" id="axMeasurement" name="axMeasurement" class="input-sm form-control col-md-3" placeholder="" type="text" required="" disabled="disabled">
+												</div>
+											</div>
+
+										</div>
+										<div class="form-group">
+											<button type="button" id="updateRPSLValveTechData" class="btn-sm btn-info pull-right col-md-3" style="display:none;"><i class="fa fa-spinner"></i>Update Tech Data</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingThree">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										Test Data
+									</a>
+								</h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Inspector</label>
+												<input disabled="disabled" class="input-sm form-control col-md-3" name="inspector" value="{{valveTestCard.inspector}}" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Location</label>
+												<input disabled="disabled" class="input-sm form-control col-md-3" name="testLocation"  value="{{valveTestCard.testLocation}}"/>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Medium</label>
+												<input disabled="disabled" class="input-sm form-control col-md-3" name="testMedium" value="{{valveTestCard.testMedium}}"/>
+												<!-- This should be a dropdown -->
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Application Number</label>
+												<input disabled="disabled" class="input-sm form-control col-md-3" name="applicationNumber" value="{{valveTestCard.applicationNumber}}"/>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Surveyor</label>
+												<input disabled="disabled" class="input-sm form-control col-md-3" name="surveyor" value="{{valveTestCard.surveyor}}"/>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Pressure Transducer</label>
+												<input disabled="disabled" class="input-sm form-control col-md-3" name="pressureTransducer" value="{{valveTestCard.pressureTransducer}}"/>
+												<!-- This should be a dropdown -->
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Certification No.</label>
+												<input disabled="disabled" class="input-sm form-control col-md-3" name="certificationNumber" value="{{certnum}}"/>
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Date</label>
+												<div class='input-group date' id='testDatepicker'>
+                    			<input type="text" disabled="disabled" class="input-sm form-control col-md-3" name="testDate" value="{{valveTestCard.testDate}}"/>
+                    			<span class="input-group-addon input-sm">
+                        	<span class="glyphicon glyphicon-calendar"></span>
+                    			</span>
+                				</div>
+											</div>
+											<div class="form-group">
+												<button type="button" id="updateRPSLValveTestData" class="btn-sm btn-info pull-right col-md-3" style="display:none;"><i class="fa fa-spinner"></i>Update Tech Data</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{%if current_page=="valveCard"%}
+						<div class="panel panel-primary" id="releasePressurePanel">
+							<div class="panel-heading" role="tab" id="headingFour">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+										Release Pressure
+									</a>
+								</h4>
+							</div>
+							<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+								<div class="panel-body">
+									<form action="http://127.0.0.1:8001/EfcoDAQService/EfcoBackendService" method="GET" class="form-horizontal" name="releasePressureTest">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Tolerance min[%]</label>
+												<input class="input-sm form-control" id="minimumTolerance" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Tolerance max[%]</label>
+												<input class="input-sm form-control" id="maximumTolerance" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Target release Pressure</label>
+												<input class="input-sm form-control" id="targetPressure" />
+											</div>
+										</div>
+
+									</form>
+									<div class="form-horizontal col-md-4">
+										<div class="form-group">
+											<label class="control-label">Actual Release Pressure</label>
+											<input class="input-sm form-control" name="actualReleasePressure" id="actualReleasePressure" disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{%elif current_page=="btslvalveCard"%}
+
+						<div class="panel panel-primary" id="bodyTestPanel">
+							<div class="panel-heading" role="tab" id="headingFour">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+										Body Test
+									</a>
+								</h4>
+							</div>
+							<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+								<div class="panel-body">
+									<form action="http://127.0.0.1:8001/EfcoDAQService/EfcoBackendService" method="GET" class="form-horizontal" name="releasePressureTest">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Tolerance[%]</label>
+												<input class="input-sm form-control" id="tolerance" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Duration[sec]</label>
+												<input class="input-sm form-control" id="testDuration" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Nominal Pressure</label>
+												<input class="input-sm form-control" id="nominalPressure" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Actual Pressure</label>
+												<input class="input-sm form-control" id="actualPressure" />
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+						{%endif%}
+						<div class="panel panel-primary" id="seatLeakage" style="display:none;">
+							<div class="panel-heading" role="tab" id="headingFive">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+										Seat Leakage
+									</a>
+								</h4>
+							</div>
+							<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+
+									<div class="panel-body">
+										<form action="#" method="GET" class="form-horizontal" name="seatLeakageTest">
+											{%if current_page=="valveCard"%}
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="control-label">Time</label>
+													<input class="input-sm form-control" id="time" />
+												</div>
+												<div class="form-group">
+													<label class="control-label">Percentage of Release Pressure</label>
+													<input class="input-sm form-control" id="percentageRelease" />
+												</div>
+											</div>
+
+										</form>
+										<div class="form-horizontal col-md-4">
+											<div class="form-group">
+												<label class="control-label">Final Pressure</label>
+												<input class="input-sm form-control" name="actualReleasePressure" id="finalPressure" disabled="disabled"/>
+											</div>
+										</div>
+										{%elif current_page=="btslvalveCard"%}
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Time</label>
+												<input class="input-sm form-control" id="time" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Test Pressure</label>
+												<input class="input-sm form-control" id="test" />
+											</div>
+										</div>
+
+									</form>
+									<div class="form-horizontal col-md-4">
+										<div class="form-group">
+											<label class="control-label">Final Pressure</label>
+											<input class="input-sm form-control" name="actualReleasePressure" id="finalPressure" disabled="disabled"/>
+										</div>
+									</div>
+									{%endif%}
+									</div>
+
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingSix">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
+										Operations
+									</a>
+								</h4>
+							</div>
+							<div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body">
+									<p>
+									  <!-- <a href="#" class="btn valveOp-btn-squared-default btn-default">
+											<i class="fa fa-clone fa-5x"></i><br/>
+											Copy <br/>Valve
+										</a> -->
+										<a href="#" class="btn valveOp-btn-squared-default btn-danger">
+											<i class="fa fa-times fa-5x"></i><br/>
+											Delete <br/> Valve
+										</a>
+										<a href="#" class="btn valveOp-btn-squared-default btn-info">
+											<i class="fa fa-save fa-5x"></i><br/>
+											Save  <br/>Valve
+										</a>
+										{%if current_page=="valveCard"%}
+										<a href="#" class="btn valveOp-btn-squared-default btn-warning" id="startRPVI">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Start RP <br>Application
+										</a>
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="rpTest">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Release  <br/>Pressure
+										</a>
+										{%elif current_page=="btslvalveCard"%}
+										<a href="#" class="btn valveOp-btn-squared-default btn-warning" id="startBTVI">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Start BT <br>Application
+										</a>
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="btTest">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Body <br/>Test
+										</a>
+										{%endif%}
+										<a href="#" class="btn valveOp-btn-squared-default btn-warning" id="startSLVI" style="display:none;">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Start SL <br>Application
+										</a>
+
+
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="slTest" style="display:none;">
+											<i class="fa fa-plus fa-5x"></i><br/>
+											Seat  <br/>Leakage
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingSix">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseThree">
+										Report Generation
+									</a>
+								</h4>
+							</div>
+							<div id="collapseSeven" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body">
+									<form action="http://localhost:5000/showReport" method="get" id="reportForm">
+										<input type="hidden" name="rtargetPressure" id="rtargetPressure" value="">
+										<input type="hidden" name="rfinalPressure"  id="rfinalPressure" value="">
+										<input type="hidden" name="rvalve_id" id="rvalve_id" value="">
+										<input type="hidden" name="ractualPressure" id="ractualPressure" value="">
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="generateReport">
+											<i class="fa fa-check fa-5x"></i><br/>
+											Generate  <br/>report
+										</a>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock%}
