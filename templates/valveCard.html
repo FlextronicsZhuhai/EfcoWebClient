@@ -187,42 +187,42 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Inspector</label>
-												<input disabled="disabled" class="input-sm form-control col-md-3" name="inspector" value="{{valveTestCard.inspector}}" />
+												<input disabled="disabled" class="input-sm form-control col-md-3" id="inspector" value="{{valveTestCard.inspector}}" />
 											</div>
 											<div class="form-group">
 												<label class="control-label">Test Location</label>
-												<input disabled="disabled" class="input-sm form-control col-md-3" name="testLocation"  value="{{valveTestCard.testLocation}}"/>
+												<input disabled="disabled" class="input-sm form-control col-md-3" id="testLocation"  value="{{valveTestCard.testLocation}}"/>
 											</div>
 											<div class="form-group">
 												<label class="control-label">Test Medium</label>
-												<input disabled="disabled" class="input-sm form-control col-md-3" name="testMedium" value="{{valveTestCard.testMedium}}"/>
+												<input disabled="disabled" class="input-sm form-control col-md-3" id="testMedium" value="{{valveTestCard.testMedium}}"/>
 												<!-- This should be a dropdown -->
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Application Number</label>
-												<input disabled="disabled" class="input-sm form-control col-md-3" name="applicationNumber" value="{{valveTestCard.applicationNumber}}"/>
+												<input disabled="disabled" class="input-sm form-control col-md-3" id="applicationNumber" value="{{valveTestCard.applicationNumber}}"/>
 											</div>
 											<div class="form-group">
 												<label class="control-label">Surveyor</label>
-												<input disabled="disabled" class="input-sm form-control col-md-3" name="surveyor" value="{{valveTestCard.surveyor}}"/>
+												<input disabled="disabled" class="input-sm form-control col-md-3" id="surveyor" value="{{valveTestCard.surveyor}}"/>
 											</div>
 											<div class="form-group">
 												<label class="control-label">Pressure Transducer</label>
-												<input disabled="disabled" class="input-sm form-control col-md-3" name="pressureTransducer" value="{{valveTestCard.pressureTransducer}}"/>
+												<input disabled="disabled" class="input-sm form-control col-md-3" id="pressureTransducer" value="{{valveTestCard.pressureTransducer}}"/>
 												<!-- This should be a dropdown -->
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Certification No.</label>
-												<input disabled="disabled" class="input-sm form-control col-md-3" name="certificationNumber" value="{{certnum}}"/>
+												<input disabled="disabled" class="input-sm form-control col-md-3" id="certificationNumber" value="{{certnum}}"/>
 											</div>
 											<div class="form-group">
 												<label class="control-label">Test Date</label>
 												<div class='input-group date' id='testDatepicker'>
-                    			<input type="text" disabled="disabled" class="input-sm form-control col-md-3" name="testDate" value="{{valveTestCard.testDate}}"/>
+                    			<input type="text" disabled="disabled" class="input-sm form-control col-md-3" id="testDate" value="{{valveTestCard.testDate}}"/>
                     			<span class="input-group-addon input-sm">
                         	<span class="glyphicon glyphicon-calendar"></span>
                     			</span>
@@ -247,7 +247,7 @@
 							</div>
 							<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 								<div class="panel-body">
-									<form action="http://127.0.0.1:8001/EfcoDAQService/EfcoBackendService" method="GET" class="form-horizontal" name="releasePressureTest">
+									<form class="form-horizontal" name="releasePressureTest">
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Tolerance min[%]</label>
@@ -287,7 +287,7 @@
 							</div>
 							<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
 								<div class="panel-body">
-									<form action="http://127.0.0.1:8001/EfcoDAQService/EfcoBackendService" method="GET" class="form-horizontal" name="releasePressureTest">
+									<form class="form-horizontal" name="releasePressureTest">
 										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Tolerance[%]</label>
@@ -444,7 +444,10 @@
 											Generate  <br/>report
 										</a>
 									</form>
-
+									<a href="#" class="btn valveOp-btn-squared-default btn-info" id="showReport" style="display:none;">
+										<i class="fa fa-check fa-5x"></i><br/>
+										Show  <br/>report
+									</a>
 								</div>
 							</div>
 						</div>

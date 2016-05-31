@@ -4,6 +4,8 @@ import os
 import subprocess
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 app = Flask(__name__,static_folder='static',static_url_path='/static')
 app.secret_key = os.urandom(24)
@@ -11,6 +13,10 @@ app.secret_key = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////efco.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 class Valve(db.Model):
     id=db.Column(db.Integer,primary_key=True)
@@ -100,9 +106,75 @@ class CertificationNumber(db.Model):
     def __repr__(self):
         return '<CertificationNumber %r>'%self.date+str(self.count)
 
-# class ValveTestReport(db.Model):
-#     id=db.Column(db.Integer,primary_key=True)
-#     valve_id = db.Column(db.Integer, db.ForeignKey(Valve))
+class ValveTestReport(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    valve_id = db.Column(db.String(32))
+    dnInlet = db.Column(db.Float)
+    dnOutlet = db.Column(db.Float)
+    seatPressure = db.Column(db.Float)
+    seatDiameter = db.Column(db.Float)
+    dnInletUnit = db.Column(db.String(12))
+    dnOutletUnit = db.Column(db.String(12))
+    seatPressureUnit = db.Column(db.String(12))
+    axMeasurement = db.Column(db.Float)
+    inspector=db.Column(db.String(32))
+    testLocation=db.Column(db.String(32))
+    testMedium=db.Column(db.String(32))
+    applicationNumber=db.Column(db.String(32))
+    surveyor=db.Column(db.String(32))
+    pressureTransducer=db.Column(db.String(32))
+    certificationNumber=db.Column(db.String(12))
+    testDate=db.Column(db.DateTime)
+    minimumTolerance=db.Column(db.Float,nullable=True)
+    maximumTolerance=db.Column(db.Float,nullable=True)
+    targetReleasePressure=db.Column(db.Float,nullable=True)
+    actualReleasePressure=db.Column(db.Float,nullable=True)
+    slTime=db.Column(db.Integer,nullable=True)
+    percentageRelease=db.Column(db.Float,nullable=True)
+    finalPressure=db.Column(db.Float,nullable=True)
+    btTolerance=db.Column(db.Float,nullable=True)
+    btTime=db.Column(db.Float,nullable=True)
+    nominalPressure=db.Column(db.Float,nullable=True)
+    btActualPressure=db.Column(db.Float,nullable=True)
+    comments=db.Column(db.String(512))
+
+    def __init__(self,valve_id,dnInlet,dnOutlet,seatPressure,seatDiameter,axMeasurement,\
+    dnInletUnit,dnOutletUnit,seatPressureUnit,inspector,testLocation,testMedium,applicationNumber,\
+    surveyor,pressureTransducer,certificationNumber,testDate,minimumTolerance,maximumTolerance,\
+    targetReleasePressure,actualReleasePressure,slTime,percentageRelease,finalPressure,\
+    btTolerance,btTime,nominalPressure,btActualPressure,comments):
+        self.valve_id=valve_id
+        self.dnInlet=dnInlet
+        self.dnOutlet=dnOutlet
+        self.seatPressure=seatPressure
+        self.seatPressureUnit=seatPressureUnit
+        self.seatDiameter=seatDiameter
+        self.axMeasurement=axMeasurement
+        self.dnInletUnit=dnInletUnit
+        self.dnOutletUnit=dnOutletUnit
+        self.inspector=inspector
+        self.testLocation=testLocation
+        self.testMedium=testMedium
+        self.applicationNumber=applicationNumber
+        self.surveyor=surveyor
+        self.pressureTransducer=pressureTransducer
+        self.certificationNumber=certificationNumber
+        self.testDate=datetime.now()
+        self.minimumTolerance=minimumTolerance
+        self.maximumTolerance=maximumTolerance
+        self.targetReleasePressure=targetReleasePressure
+        self.actualReleasePressure=actualReleasePressure
+        self.slTime=slTime
+        self.percentageRelease=percentageRelease
+        self.finalPressure=finalPressure
+        self.btTolerance=btTolerance
+        self.btTime=btTime
+        self.nominalPressure=nominalPressure
+        self.btActualPressure=btActualPressure
+        self.comments=comments
+
+        def __repr__(self):
+            return "<Report: %r>"%(self.certificationNumber)
 
 db.create_all()
 
@@ -133,8 +205,10 @@ def generateCertificationNumber():
 def updateRPSLValveTechData():
     if request.method=="POST":
         valve_id=request.form.get("valve_id")
-        valveTechData=ValveTechincalData.query.filter_by(valve_id=valve_id).first()
+        valve=Valve.query.filter_by(valve_id=valve_id).first()
+        valveTechData=ValveTechincalData.query.filter_by(valve_id=valve.id).first()
         valveTechData.dnInlet=request.form.get('dnInlet')
+        print "dnInletUnit: ",request.form.get('dnInletUnit')
         valveTechData.dnInletUnit=request.form.get('dnInletUnit')
         valveTechData.dnOutlet=request.form.get('dnOutlet')
         valveTechData.dnOutletUnit=request.form.get('dnOutletUnit')
@@ -246,11 +320,12 @@ def rpslValveCard(valveNumber):
     valveCard=Valve.query.filter_by(valve_id=valveNumber,valve_type=1).first()
     valveTechCard=ValveTechincalData.query.filter_by(valve_id=valveCard.id).first()
     valveTestCard=ValveTestData.query.filter_by(valve_id=valveCard.id).first()
+    print valveTechCard.dnInletUnit
     timedata=str(datetime.now().date())
     timedata=timedata.replace("-","")
     certnum=CertificationNumber.query.filter_by(date=timedata).first()
     certnum=str(certnum.date)+str("%03d"%(certnum.count+1,))
-    return render_template('rpslValveCard.html',certnum=certnum,valveCard=valveCard,current_page="valveCard",valveTechCard=valveTechCard,valveTestCard=valveTestCard)
+    return render_template('valveCard.html',certnum=certnum,valveCard=valveCard,current_page="valveCard",valveTechCard=valveTechCard,valveTestCard=valveTestCard)
 
 @app.route('/btslvalve/<valveNumber>')
 def btslValveCard(valveNumber):
@@ -261,7 +336,7 @@ def btslValveCard(valveNumber):
     timedata=timedata.replace("-","")
     certnum=CertificationNumber.query.filter_by(date=timedata).first()
     certnum=str(certnum.date)+str("%03d"%(certnum.count+1,))
-    return render_template('btslValveCard.html',certnum=certnum,valveCard=valveCard,current_page="btslvalveCard",valveTechCard=valveTechCard,valveTestCard=valveTestCard)
+    return render_template('valveCard.html',certnum=certnum,valveCard=valveCard,current_page="btslvalveCard",valveTechCard=valveTechCard,valveTestCard=valveTestCard)
 
 @app.route('/startRPVI',methods=['GET'])
 def startRPVI():
@@ -288,25 +363,75 @@ def startBTVI():
     process.wait()
     return jsonify(status_code=200,done=200)
 
-@app.route('/showReport',methods=['GET'])
-def showReport():
-    if request.method=="GET":
-        targetPressure=request.args.get('rtargetPressure')
-        finalPressure=request.args.get('rfinalPressure')
-        actualReleasePressure=request.args.get('ractualPressure')
-        valve_id=request.args.get('rvalve_id')
-        valve_type=request.args.get('valve_type')
+@app.route('/generateReport',methods=['GET','POST'])
+def generateReport():
+    if request.method=="POST":
+        valve_id=request.form.get('valve_id')
+        valve_type=request.form.get('valve_type')
         valve=Valve.query.filter_by(valve_id=valve_id,valve_type=valve_type).first()
         valveTechCard=ValveTechincalData.query.filter_by(valve_id=valve.id).first()
         valveTestCard=ValveTestData.query.filter_by(valve_id=valve.id).first()
-        print valveTestCard
-        return render_template('showReport.html',valve=valve,actualReleasePressure=actualReleasePressure,valveTechCard=valveTechCard,valveTestCard=valveTestCard,targetPressure=targetPressure,finalPressure=finalPressure)
+        valve_id=valve.id
+        dnInlet=float(request.form.get('dnInlet'))
+        dnOutlet=float(request.form.get('dnOutlet'))
+        seatPressure=float(request.form.get('seatPressure'))
+        seatPressureUnit=request.form.get('seatPressureUnit')
+        seatDiameter=float(request.form.get('seatDiameter'))
+        axMeasurement=float(request.form.get('axMeasurement'))
+        dnInletUnit=request.form.get('dnInletUnit')
+        dnOutletUnit=request.form.get('dnOutletUnit')
+        inspector=request.form.get('inspector')
+        testLocation=request.form.get('testLocation')
+        testMedium=request.form.get('testMedium')
+        applicationNumber=request.form.get('applicationNumber')
+        surveyor=request.form.get('surveyor')
+        pressureTransducer=request.form.get('pressureTransducer')
+        certificationNumber=request.form.get('certificationNumber')
+        testDate=request.form.get('testDate')
+        minimumTolerance=request.form.get('minimumTolerance')
+        maximumTolerance=request.form.get('maximumTolerance')
+        targetReleasePressure=request.form.get('targetReleasePressure')
+        actualReleasePressure=request.form.get('actualReleasePressure')
+        slTime=request.form.get('slTime')
+        percentageRelease=request.form.get('percentageRelease')
+        finalPressure=request.form.get('finalPressure')
+        btTolerance=request.form.get('btTolerance')
+        btTime=request.form.get('btTime')
+        nominalPressure=request.form.get('nominalPressure')
+        btActualPressure=request.form.get('btActualPressure')
+        comments=request.form.get('comments')
+        valveTR=ValveTestReport(valve_id,dnInlet,dnOutlet,seatPressure,seatDiameter,axMeasurement,\
+        dnInletUnit,dnOutletUnit,seatPressureUnit,inspector,testLocation,testMedium,applicationNumber,\
+        surveyor,pressureTransducer,certificationNumber,testDate,minimumTolerance,maximumTolerance,\
+        targetReleasePressure,actualReleasePressure,slTime,percentageRelease,finalPressure,\
+        btTolerance,btTime,nominalPressure,btActualPressure,comments)
+        save(valveTR)
+        generateCertificationNumber()
+        return jsonify(status_code=200,message="Successfully generated!!",certificationNumber=certificationNumber,valve_type=valve_type)
     else:
         return redirect('/')
 
+@app.route('/showReport/<certno>/<valve_type>')
+def showReport(certno,valve_type):
+    valveTR=ValveTestReport.query.filter_by(certificationNumber=certno).first()
+    valve=Valve.query.filter_by(id=valveTR.valve_id,valve_type=valve_type).first()
+    return render_template('showReport.html',valveTR=valveTR,valve=valve,valve_type=valve_type)
 @app.route('/faq')
 def faq():
     return render_template('faq.html')
 
+@app.route('/showPreviousReports')
+def showPreviousReports():
+    valveTR=ValveTestReport.query.all()
+    for row in valveTR:
+        print row.valve_id
+        valve=Valve.query.filter_by(id=row.valve_id).first()
+        row.valve_id=valve.valve_id
+        row.valve_type=valve.valve_type
+
+    return render_template('showPreviousReports.html',valveTR=valveTR,current_page="reports")
+
 if __name__ == "__main__":
-    app.run(debug=True,port=80)
+    app.config['DEBUG']=True
+    app.config['PORT']=80
+    manager.run()

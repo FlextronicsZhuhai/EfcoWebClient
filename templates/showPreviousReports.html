@@ -1,0 +1,52 @@
+{%extends "layout/header.html"%}
+{% block title %}Home{% endblock %}
+{% block content%}
+<div class="container text-center">
+
+<div class="row">
+    <div class="col-lg-12">
+    <h2>FAQ - EFCO VALVE Documentation</h2>
+
+    		<div class="col-lg-12">
+
+    			<div class="panel panel-primary">
+    				<div class="panel-heading">
+    					<h3 class="panel-title clearfix">Search Reports</h3>
+    				</div>
+    				<div class="panel-body">
+
+    					<table class="table table-bordered table-responsive table-hovered table-condensed" id="valves">
+    						<thead>
+    							<tr>
+    								<td>Valve No.</td>
+    								<td>Valve Type</td>
+                    <td>CertificationNumber</td>
+                    <td>Inspector</td>
+
+    							</tr>
+    						</thead>
+    						<tbody>
+                  {%for row in valveTR%}
+                  <tr>
+                    <td>{{row.valve_id}}</td>
+                    <td>
+                      {% if row.valve_type=="1"%}
+                      Safety
+                      {% elif row.valve_type=="2"%}
+                      Shut off
+                      {% endif%}
+                    </td>
+                    <td><a href="/showReport/{{row.certificationNumber}}/{{row.valve_type}}">{{row.certificationNumber}}</a></td>
+                    <td>{{row.inspector}}</td>
+
+                  </tr>
+                  {%endfor%}
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+  </div>
+</div>
+</div>
+{%endblock%}

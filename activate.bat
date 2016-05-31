@@ -1,1 +1,1 @@
-python D:\Projects\EfcoWebClient\server_sa.py
+python D:\Projects\EfcoWebClient\server_sa.py runserver

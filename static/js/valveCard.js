@@ -11,6 +11,7 @@ $(document).ready(function(){
 			$('#valveNumber').attr('disabled',true);
 			$('#actualReleasePressure').attr('disabled',true);
 			$('#finalPressure').attr('disabled',true);
+			$(".selectLengthUnit").attr('disabled',false);
 			editing=1;
 		}
 		else {
@@ -20,8 +21,7 @@ $(document).ready(function(){
 			$('#updateRPSLValveTechData').css('display',"none");
 			$('input:text').attr('disabled',true);
 			$('#minimumTolerance, #maximumTolerance, #targetPressure, #time, #percentageRelease').attr('disabled',false);
-
-
+			$(".selectLengthUnit").attr('disabled',true);
 		}
 	});
 	$('#generateReport').on('click',function(e){
@@ -30,7 +30,55 @@ $(document).ready(function(){
 		$('#ractualPressure').val($('#actualReleasePressure').val());
 		$('#rfinalPressure').val($('#finalPressure').val());
 		$('#rvalve_id').val($('#valveNumber').val());
-		$("#reportForm").submit();
+		
+			var comment=window.prompt("Enter your comment");
+		var request = $.ajax({
+			url: "http://localhost:5000/generateReport",
+			method:"POST",
+			type:"POST",
+			data:{
+				"valve_id":$('#valveNumber').val(),
+				"valve_type":$('#valve_type').val(),
+				"dnInlet":$('#dnInlet').val(),
+				"dnInletUnit":$('#dnInletUnit').val(),
+				"dnOutlet":$('#dnOutlet').val(),
+				"dnOutletUnit":$('#dnOutletUnit').val(),
+				"seatPressure":$('#seatPressure').val(),
+				"seatPressureUnit":$('#seatPressureUnit').val(),
+				"seatDiameter":$('#seatDiameter').val(),
+				"axMeasurement":$('#axMeasurement').val(),
+				"inspector":$('#inspector').val(),
+				"applicationNumber":$('#applicationNumber').val(),
+				"certificationNumber":$('#certificationNumber').val(),
+				"testLocation":$('#testLocation').val(),
+				"surveyor":$('#surveyor').val(),
+				"testDate":$('#testDate').val(),
+				"testMedium":$('#testMedium').val(),
+				"pressureTransducer":$('#pressureTransducer').val(),
+				"minimumTolerance":$('#minimumTolerance').val(),
+				"maximumTolerance":$('#maximumTolerance').val(),
+				"targetReleasePressure":$('#targetPressure').val(),
+				"actualReleasePressure":$('#actualReleasePressure').val(),
+				"slTime":$('#time').val(),
+				"percentageRelease":$('#percentageRelease').val(),
+				"finalPressure":$('#finalPressure').val(),
+				"btTolerance":$('#btTolerance').val(),
+				"btTime":$('#btTime').val(),
+				"nominalPressure":$('#nominalPressure').val(),
+				"btActualPressure":$('#btActualPressure').val(),
+				"comments":comment
+			}
+		});
+
+				request.done(function( msg ) {
+					$('#alert-box').css('display','block');
+					$('#message').html(msg.message);
+					$('#showReport').show();
+					$('#generateReport').hide();
+					$('#showReport').attr('href',"/showReport/"+msg.certificationNumber+"/"+msg.valve_type);
+				});
+
+
 	});
 	$('#updateValveData').on('click',function(e){
 		e.preventDefault();
@@ -110,7 +158,7 @@ $(document).ready(function(){
 			crossDomain: true
 		});
 		confirm.done(function(msg){
-		alert(msg);
+		console.log(msg);
 		});
 		confirm.fail(function(jqXHR,textStatus){
 			alert( "Request failed: " + textStatus );
@@ -126,7 +174,7 @@ $(document).ready(function(){
 			crossDomain: true
 		});
 		confirm.done(function(msg){
-		alert(msg);
+		console.log(msg);
 		});
 		confirm.fail(function(jqXHR,textStatus){
 			alert( "Request failed: " + textStatus );
