@@ -140,8 +140,8 @@
 													<input id="seatPressure" name="seatPressure" class="input-sm form-control col-md-3" placeholder="" value="{{valveTechCard.seatPressure}}" type="text" required="" disabled="disabled">
 													<select disabled="disabled" class="input-sm form-control selectLengthUnit" id="seatPressureUnit">
 														<option value="-1">Select one</option>
-														<option value="mm" {%if valveTechCard.seatPressureUnit=="bar"%}selected{%endif%}>bar</option>
-														<option value="in" {%if valveTechCard.seatPressureUnit=="kgpercm2"%}selected{%endif%}>kg/cm<sup>2</sup></option>
+														<option value="bar" {%if valveTechCard.seatPressureUnit=="bar"%}selected{%endif%}>bar</option>
+														<option value="kgpercm2" {%if valveTechCard.seatPressureUnit=="kgpercm2"%}selected{%endif%}>kg/cm<sup>2</sup></option>
 													</select>
 												</div>
 											</div>
@@ -263,13 +263,22 @@
 												<label class="control-label">Target release Pressure</label>
 												<input class="input-sm form-control" id="targetPressure" />
 											</div>
+											<div class="form-group">
+												<label class="control-label">Actual Release Pressure</label>
+												<input class="input-sm form-control" name="actualReleasePressure" id="actualReleasePressure" disabled="disabled"/>
+											</div>
 										</div>
 
 									</form>
 									<div class="form-horizontal col-md-4">
+
 										<div class="form-group">
-											<label class="control-label">Actual Release Pressure</label>
-											<input class="input-sm form-control" name="actualReleasePressure" id="actualReleasePressure" disabled="disabled"/>
+											<label class="control-label">Unit</label>
+											<select class="form-control input-sm" name="pressureUnit" id="safetyPressureUnit">
+												<option value="-1">Select one</option>
+												<option value="bar" selected>Bar</option>
+												<option value="kgpercm2">Kg/cm^2</option>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -308,6 +317,14 @@
 											<div class="form-group">
 												<label class="control-label">Actual Pressure</label>
 												<input class="input-sm form-control" id="actualPressure" />
+											</div>
+											<div class="form-group">
+												<label class="control-label">Unit</label>
+												<select class="form-control input-sm" name="pressureUnit" id="shutOffPressureUnit">
+													<option value="-1">Select one</option>
+													<option value="bar" selected>Bar</option>
+													<option value="kgpercm2">Kg/cm^2</option>
+												</select>
 											</div>
 										</div>
 
@@ -367,6 +384,12 @@
 										</div>
 									</div>
 									{%endif%}
+									<div class="form-horizontal col-md-4">
+										<div class="form-group">
+											<label class="control-label">Leakage (bubbles/min)</label>
+											<input class="input-sm form-control" name="leakage" id="leakage"/>
+										</div>
+									</div>
 									</div>
 
 							</div>
@@ -386,20 +409,20 @@
 											<i class="fa fa-clone fa-5x"></i><br/>
 											Copy <br/>Valve
 										</a> -->
-										<a href="#" class="btn valveOp-btn-squared-default btn-danger">
+										<!-- <a href="#" class="btn valveOp-btn-squared-default btn-danger">
 											<i class="fa fa-times fa-5x"></i><br/>
 											Delete <br/> Valve
 										</a>
 										<a href="#" class="btn valveOp-btn-squared-default btn-info">
 											<i class="fa fa-save fa-5x"></i><br/>
 											Save  <br/>Valve
-										</a>
+										</a> -->
 										{%if current_page=="valveCard"%}
 										<a href="#" class="btn valveOp-btn-squared-default btn-warning" id="startRPVI">
 											<i class="fa fa-plus fa-5x"></i><br/>
 											Start RP <br>Application
 										</a>
-										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="rpTest">
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="rpTest" style="display:none;">
 											<i class="fa fa-plus fa-5x"></i><br/>
 											Release  <br/>Pressure
 										</a>
@@ -408,7 +431,7 @@
 											<i class="fa fa-plus fa-5x"></i><br/>
 											Start BT <br>Application
 										</a>
-										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="btTest">
+										<a href="#" class="btn valveOp-btn-squared-default btn-success" id="btTest" style="display:none;">
 											<i class="fa fa-plus fa-5x"></i><br/>
 											Body <br/>Test
 										</a>

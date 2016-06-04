@@ -30,8 +30,9 @@ $(document).ready(function(){
 		$('#ractualPressure').val($('#actualReleasePressure').val());
 		$('#rfinalPressure').val($('#finalPressure').val());
 		$('#rvalve_id').val($('#valveNumber').val());
-		
-			var comment=window.prompt("Enter your comment");
+
+		var comment=window.prompt("Enter your comment");
+
 		var request = $.ajax({
 			url: "http://localhost:5000/generateReport",
 			method:"POST",
@@ -66,7 +67,8 @@ $(document).ready(function(){
 				"btTime":$('#btTime').val(),
 				"nominalPressure":$('#nominalPressure').val(),
 				"btActualPressure":$('#btActualPressure').val(),
-				"comments":comment
+				"comments":comment,
+				"leakage":$('#leakage').val()
 			}
 		});
 
@@ -136,6 +138,11 @@ $(document).ready(function(){
 	});
 	$('#startRPVI').on('click',function(event){
 		event.preventDefault();
+		$('#rpTest').show();
+		if($('#safetyPressureUnit').val()==-1){
+			alert("Please set pressure unit");
+			return;
+		}
 		var confirm=$.ajax({
 			url:"/startRPVI",
 			method:"GET",
@@ -151,6 +158,7 @@ $(document).ready(function(){
 	});
 	$('#startSLVI').on('click',function(event){
 		event.preventDefault();
+		$('#slTest').show();
 		var confirm=$.ajax({
 			url:"/startSLVI",
 			method:"GET",
@@ -166,7 +174,11 @@ $(document).ready(function(){
 	});
 	$('#startBTVI').on('click',function(event){
 		event.preventDefault();
-
+		$('#btTest').show();
+		if($('#shutOffPressureUnit').val()==-1){
+			alert("Please set pressure unit");
+			return;
+		}
 		var confirm=$.ajax({
 			url:"/startBTVI",
 			method:"GET",
@@ -185,23 +197,24 @@ $(document).ready(function(){
 		var targetPressure=$('#targetPressure').val();
 		var minimumTolerance=$('#minimumTolerance').val();
 		var maximumTolerance=$('#maximumTolerance').val();
-
+		var pressureUnit = $('#safetyPressureUnit').val();
 	var request = $.ajax({
-		url: "http://127.0.0.1:8023/EfcoWebService/releasePressure",
+		url: "http://127.0.0.1:8023/EfcoWebService/rpTest",
 		method: "GET",
 		data: {
 			"targetPressure":targetPressure,
 			"maximumTolerance": maximumTolerance,
-			"minimumTolerance": minimumTolerance
+			"minimumTolerance": minimumTolerance,
+			"pressureUnit": pressureUnit
 		}
 		});
 
 	request.done(function( msg ) {
 		console.log(msg);
-		$( "#actualReleasePressure" ).val( msg.maximumPressure);
+		$( "#actualReleasePressure" ).val( parseFloat(msg.maximumPressure).toFixed(2));
 		$('#seatLeakage').show();
 		$('#startSLVI').show();
-		$('#slTest').show();
+
 	});
 
 	request.fail(function( jqXHR, textStatus ) {
@@ -231,7 +244,7 @@ $(document).ready(function(){
 
 	request.done(function( msg ) {
 		console.log(msg);
-		$( "#finalPressure" ).val( msg.finalPressure);
+		$( "#finalPressure" ).val( parseFloat(msg.finalPressure).toFixed(2));
 
 	});
 
@@ -244,7 +257,7 @@ $(document).ready(function(){
 		var time=$('#testDuration').val();
 		var tolerance=$('#tolerance').val();
 		var nominalPressure=$('#nominalPressure').val()*(~~(tolerance))/100;
-
+		var pressureUnit = $('#shutOffPressureUnit').val();
 
 	var request = $.ajax({
 		url: "http://127.0.0.1:8023/EfcoWebService/bodyTest",
@@ -252,13 +265,14 @@ $(document).ready(function(){
 		data: {
 			"time":time,
 			"nominalPressure":nominalPressure,
+			"pressureUnit":pressureUnit
 		},
 		crossDomain: true
 	});
 
 	request.done(function( msg ) {
 		console.log(msg.actualPressure);
-		$( "#actualPressure" ).val( msg.actualPressure);
+		$( "#actualPressure" ).val( parseFloat(msg.actualPressure).toFixed(2));
 		$('#seatLeakage').show();
 		$('#startSLVI').show();
 		$('#slTest').show();

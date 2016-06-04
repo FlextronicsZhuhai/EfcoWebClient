@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Report</title>
+
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/blueprint/screen.css')}}" type="text/css" media="screen, projection, print">
+    <!--[if lt IE 8]><link rel="stylesheet" href="../../blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  </head>
+  <body>
+  <button type="button" name="printReport" class="span-3 push-24" onclick="printContent('report');">Print Report</button>
+
+    <div class="container" id="report">
+      <h1 class="span-8 prepend-8 append-8">EFCO Valve Doc</h1>
+      <div class="span-6 prepend-3">
+        <p>EFCO Maschinenbau GmbH <br> Otto-Brenner-Str.5-7<br> 52353 Duren </p>
+      </div>
+      <div class="span-6 prepend-1">
+        <p>Test Report  {%if valve.valve_type=="1"%}Safety{%elif valve.valve_type=="2"%}Shut Off{%endif%} Valve</p>
+      </div>
+      <div class="span-6 prepend-2 last">
+        <img src="{{url_for('static',filename='logo.gif')}}" alt="EFCO LOGO" style="width:80px;"/>
+        <p><strong>EFCO INDIA</strong></p>
+      </div>
+      <hr>
+      <div class="span-12 border">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tbody>
+            <tr>
+              <td >
+                Valve No.
+              </td>
+              <td>
+                {{valve.valve_id}}
+              </td>
+              <td>
+                Customer
+              </td>
+              <td>
+                {{valve.customer}}
+              </td>
+            </tr>
+            <tr>
+              <td >
+                Rev No
+              </td>
+              <td>
+                {{valve.rev_no}}
+              </td>
+              <td>
+                Application No
+              </td>
+              <td>
+                {{valveTR.applicationNumber}}
+              </td>
+            </tr>
+            <tr>
+              <td >
+                Part No.
+              </td>
+              <td>
+                {{valve.part_no}}
+              </td>
+              <td>
+                Manufacturer
+              </td>
+              <td>
+                {{valve.manufacturer}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Test Location
+              </td>
+              <td>
+                {{valveTR.testLocation}}
+              </td>
+              <td>
+                Tests Conducted
+              </td>
+              <td>
+                {%if valve.valve_type=="1"%}RP
+                {%elif valve.valve_type=="2"%}BT{%endif%}
+                &amp; SL
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="span-12 last">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tbody>
+            <tr>
+              <td>Plant</td>
+              <td>{{valve.plant}}</td>
+            </tr>
+            <tr>
+              <td>Certification Number</td>
+              <td><b>{{valveTR.certificationNumber}}</b></td>
+            </tr>
+            <tr>
+              <td>
+                Valve Type
+              </td>
+              <td>
+                {%if valve.valve_type=="1"%}Safety{%elif valve.valve_type=="2"%}Shut Off{%endif%}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Valve Creation Date
+              </td>
+              <td>
+                {{valve.createdOn.strftime('%d-%m-%Y') }}
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+      <hr>
+      <br>
+      <div class="span-6 prepend-9 append-8">
+        <h2>Test : PASS/ FAIL</h2>
+      </div>
+      <div class="span-24">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                DN Inlet(inch/mm)
+              </td>
+              <td>
+                DN Outlet(inch/mm)
+              </td>
+              <td>
+                Seat Pressure(bar/kgpercm2)
+              </td>
+              <td>
+                Seat diameter(inch/mm)
+              </td>
+              <td>
+                A/X measurement(inch/mm)
+              </td>
+            </tr>
+            <tr>
+            <td>{{valveTR.dnInlet}}&nbsp;{{valveTR.dnInletUnit}}</td>
+            <td>{{valveTR.dnOutlet}}&nbsp;{{valveTR.dnOutletUnit}}</td>
+            <td>{{valveTR.seatPressure}}&nbsp;{{valveTR.seatPressureUnit}}</td>
+            <td>{{valveTR.seatDiameter}}</td>
+            <td>{{valveTR.axMeasurement}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="span-12">
+        <table cellspacing="0" cellpadding="0" border="0">
+          {% if valve.valve_type == "1" %}
+          <caption>Release Pressure</caption>
+          <tbody>
+            <tr>
+              <td>
+                Target Release Pressure
+              </td>
+              <td>
+                {{valveTR.targetReleasePressure}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Actual Release Pressure
+              </td>
+              <td>
+                {{valveTR.actualReleasePressure}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  Test Medium
+              </td>
+              <td>
+                {{valveTR.testMedium}}
+              </td>
+            </tr>
+          </tbody>
+          {%elif valve.valve_type == "2"%}
+          <caption>Body Test</caption>
+          <tbody>
+            <tr>
+              <td>Nominal Pressure</td>
+              <td>{{valveTR.nominalPressure}}</td>
+            </tr>
+            <tr>
+              <td>Actual Pressure</td>
+              <td>{{valveTR.btActualPressure}}</td>
+            </tr>
+            <tr>
+              <td>Time (sec.)</td>
+              <td>{{valveTR.btTime}}</td>
+            </tr>
+          </tbody>
+          {%endif%}
+        </table>
+      </div>
+      <div class="span-12 last">
+        <table>
+          <caption>Seat Leakage</caption>
+          <tbody>
+            <tr>
+              <td>
+                Final Pressure
+              </td>
+              <td>
+                {{valveTR.finalPressure}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Leakage
+              </td>
+              <td>
+                {{valveTR.leakage}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Time (sec.)
+              </td>
+              <td>
+                {{valveTR.slTime}}
+              </td>
+            </tr>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <div class="span-8 prepend-8 append-8">
+        <p>
+          Graphs for {% if valve.valve_type=="1"%}Release Pressure{%elif valve.valve_type=="2"%}Body Test{%endif%} and Seat Leakage
+        </p>
+      </div>
+      <div class="span-12">
+        {% if valve.valve_type=="1"%}
+        <img src="{{url_for('static',filename='reports/releasePressure/rpImg.jpg')}}" alt="Release Pressure Image" style="height:350px" />
+        {%elif valve.valve_type=="2"%}
+        <img src="{{url_for('static',filename='reports/bodyTest/btImg.jpg')}}" alt="Body Test Image" style="height:350px"/>
+        {%endif%}
+      </div>
+      <div class="span-12 last">
+        <img src="{{url_for('static',filename='reports/seatLeakage/slImg.jpg')}}" alt="Seat Leakage Image" style="height:350px"/>
+      </div>
+      <hr>
+      <div class="span-24">
+        <table>
+          <caption>Inspection details</caption>
+          <tbody>
+            <tr>
+              <td>
+                Inspector
+              </td>
+              <td>
+                {{valveTR.inspector}}
+              </td>
+              <td>
+                Comment
+              </td>
+              <td>
+                {{valveTR.comments}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Test Date
+              </td>
+              <td>
+                {{valveTR.testDate.strftime("%d-%m-%Y")}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Surveyor
+              </td>
+              <td>
+                {{valveTR.surveyor}}
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </body>
+  <script>
+  function printContent(el){
+  document.title='Report{{valveTR.certificationNumber}}';
+  var restorePage = document.body.innerHTML;
+  var printContent = document.getElementById(el).innerHTML;
+  document.body.innerHTML = printContent;
+  window.print();
+  document.body.innerHTML = restorePage;
+  }
+  </script>
+</html>
