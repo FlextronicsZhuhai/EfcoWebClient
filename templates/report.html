@@ -9,17 +9,24 @@
     <!-- Framework CSS -->
     <link rel="stylesheet" href="{{url_for('static',filename='css/blueprint/screen.css')}}" type="text/css" media="screen, projection, print">
     <!--[if lt IE 8]><link rel="stylesheet" href="../../blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <style media="screen">
+      @media print {
+        body{
+        -webkit-print-color-adjust: exact;
+        }
+      }
+    </style>
   </head>
   <body>
   <button type="button" name="printReport" class="span-3 push-24" onclick="printContent('report');">Print Report</button>
 
     <div class="container" id="report">
-      <h1 class="span-8 prepend-8 append-8">EFCO Valve Doc</h1>
+      <h2 class="span-8 prepend-9 append-7">EFCO Valve Report</h2>
       <div class="span-6 prepend-3">
         <p>EFCO Maschinenbau GmbH <br> Otto-Brenner-Str.5-7<br> 52353 Duren </p>
       </div>
       <div class="span-6 prepend-1">
-        <p>Test Report  {%if valve.valve_type=="1"%}Safety{%elif valve.valve_type=="2"%}Shut Off{%endif%} Valve</p>
+        <p>Report Generation:  {%if valve.valve_type=="1"%}Safety{%elif valve.valve_type=="2"%}Shut Off{%endif%} Valve</p>
       </div>
       <div class="span-6 prepend-2 last">
         <img src="{{url_for('static',filename='logo.gif')}}" alt="EFCO LOGO" style="width:80px;"/>
@@ -141,7 +148,7 @@
                 Seat Pressure(bar/kgpercm2)
               </td>
               <td>
-                Seat diameter(inch/mm)
+                Seat diameter
               </td>
               <td>
                 A/X measurement(inch/mm)
@@ -223,7 +230,7 @@
                 Leakage
               </td>
               <td>
-                {{valveTR.leakage}}
+                {{valveTR.leakage}}&nbsp;{{valveTR.leakageUnit}}
               </td>
             </tr>
             <tr>

@@ -30,11 +30,10 @@ $(document).ready(function(){
 		$('#ractualPressure').val($('#actualReleasePressure').val());
 		$('#rfinalPressure').val($('#finalPressure').val());
 		$('#rvalve_id').val($('#valveNumber').val());
-
 		var comment=window.prompt("Enter your comment");
 
 		var request = $.ajax({
-			url: "http://localhost:5000/generateReport",
+			url: "http://localhost/generateReport",
 			method:"POST",
 			type:"POST",
 			data:{
@@ -68,7 +67,8 @@ $(document).ready(function(){
 				"nominalPressure":$('#nominalPressure').val(),
 				"btActualPressure":$('#btActualPressure').val(),
 				"comments":comment,
-				"leakage":$('#leakage').val()
+				"leakage":parseFloat($('#leakage').val()),
+				"leakageUnit":$('#leakageUnit').val()
 			}
 		});
 
@@ -85,7 +85,7 @@ $(document).ready(function(){
 	$('#updateValveData').on('click',function(e){
 		e.preventDefault();
 		var request = $.ajax({
-			url: "http://localhost:5000/updateRPSLValve",
+			url: "http://localhost/updateRPSLValve",
 			method: "POST",
 			data: {
 				"valve_id":$('#valveNumber').val(),
@@ -112,7 +112,7 @@ $(document).ready(function(){
 	$('#updateRPSLValveTechData').on('click',function(e){
 		e.preventDefault();
 		var request = $.ajax({
-			url: "http://localhost:5000/updateRPSLValveTechData",
+			url: "http://localhost/updateRPSLValveTechData",
 			method: "POST",
 			data: {
 				"valve_id":$('#valveNumber').val(),
@@ -197,7 +197,23 @@ $(document).ready(function(){
 		var targetPressure=$('#targetPressure').val();
 		var minimumTolerance=$('#minimumTolerance').val();
 		var maximumTolerance=$('#maximumTolerance').val();
-		var pressureUnit = $('#safetyPressureUnit').val();
+		var pressureUnit = ~~$('#safetyPressureUnit').val();
+		switch (pressureUnit) {
+			case 1:
+				pressureUnit=6.4;
+				break;
+			case 2:
+				pressureUnit=92.8242
+				break;
+			case 3:
+				pressureUnit=0.64;
+				break;
+			case 4:
+				pressureUnit=6.52618;
+				break;
+			default:
+				pressureUnit=6.4;
+		}
 	var request = $.ajax({
 		url: "http://127.0.0.1:8023/EfcoWebService/rpTest",
 		method: "GET",
@@ -205,7 +221,7 @@ $(document).ready(function(){
 			"targetPressure":targetPressure,
 			"maximumTolerance": maximumTolerance,
 			"minimumTolerance": minimumTolerance,
-			"pressureUnit": pressureUnit
+			"unit": pressureUnit
 		}
 		});
 
@@ -231,6 +247,28 @@ $(document).ready(function(){
 		else {
 			var testPressure=$('#testPressure').val();
 		}
+		if(!$('#safetyPressureUnit').val()){
+			var pressureUnit = ~~$('#safetyPressureUnit').val();
+		}
+		else if (!$('#shutOffPressureUnit').val()) {
+			var pressureUnit = ~~$('#shutOffPressureUnit').val();
+		}
+		switch (pressureUnit) {
+			case 1:
+				pressureUnit=6.4;
+				break;
+			case 2:
+				pressureUnit=92.8242
+				break;
+			case 3:
+				pressureUnit=0.64;
+				break;
+			case 4:
+				pressureUnit=6.52618;
+				break;
+			default:
+				pressureUnit=6.4;
+		}
 
 	var request = $.ajax({
 		url: "http://127.0.0.1:8023/EfcoWebService/seatLeakageTest",
@@ -238,6 +276,7 @@ $(document).ready(function(){
 		data: {
 			"time":time,
 			"testPressure":testPressure,
+			"unit":pressureUnit
 		},
 		crossDomain: true
 	});
@@ -254,25 +293,40 @@ $(document).ready(function(){
 	});
 	$('#btTest').on('click',function(event){
 		event.preventDefault();
-		var time=$('#testDuration').val();
+		var time=$('#btTime').val();
 		var tolerance=$('#tolerance').val();
 		var nominalPressure=$('#nominalPressure').val()*(~~(tolerance))/100;
 		var pressureUnit = $('#shutOffPressureUnit').val();
-
+		switch (pressureUnit) {
+			case 1:
+				pressureUnit=6.4;
+				break;
+			case 2:
+				pressureUnit=92.8242
+				break;
+			case 3:
+				pressureUnit=0.64;
+				break;
+			case 4:
+				pressureUnit=6.52618;
+				break;
+			default:
+				pressureUnit=6.4;
+		}
 	var request = $.ajax({
 		url: "http://127.0.0.1:8023/EfcoWebService/bodyTest",
 		method: "GET",
 		data: {
 			"time":time,
 			"nominalPressure":nominalPressure,
-			"pressureUnit":pressureUnit
+			"unit":pressureUnit
 		},
 		crossDomain: true
 	});
 
 	request.done(function( msg ) {
 		console.log(msg.actualPressure);
-		$( "#actualPressure" ).val( parseFloat(msg.actualPressure).toFixed(2));
+		$( "#btActualPressure" ).val( parseFloat(msg.actualPressure).toFixed(2));
 		$('#seatLeakage').show();
 		$('#startSLVI').show();
 		$('#slTest').show();

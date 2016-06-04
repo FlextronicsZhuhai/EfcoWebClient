@@ -7,7 +7,7 @@ $(document).ready(function() {
 
       if(confirm == true){
         var request = $.ajax({
-      		url: "http://localhost:5000/deleteRPSLValve",
+      		url: "http://localhost/deleteRPSLValve",
       		method: "POST",
       		data: {
       			"valve_id":input,

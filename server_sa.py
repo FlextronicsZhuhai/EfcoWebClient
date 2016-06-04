@@ -137,13 +137,14 @@ class ValveTestReport(db.Model):
     nominalPressure=db.Column(db.Float,nullable=True)
     btActualPressure=db.Column(db.Float,nullable=True)
     leakage=db.Column(db.Float,nullable=True)
+    leakageUnit = db.Column(db.String,nullable=True)
     comments=db.Column(db.String(512))
 
     def __init__(self,valve_id,dnInlet,dnOutlet,seatPressure,seatDiameter,axMeasurement,\
     dnInletUnit,dnOutletUnit,seatPressureUnit,inspector,testLocation,testMedium,applicationNumber,\
     surveyor,pressureTransducer,certificationNumber,testDate,minimumTolerance,maximumTolerance,\
     targetReleasePressure,actualReleasePressure,slTime,percentageRelease,finalPressure,\
-    btTolerance,btTime,nominalPressure,btActualPressure,leakage,comments):
+    btTolerance,btTime,nominalPressure,btActualPressure,leakage,leakageUnit,comments):
         self.valve_id=valve_id
         self.dnInlet=dnInlet
         self.dnOutlet=dnOutlet
@@ -173,6 +174,7 @@ class ValveTestReport(db.Model):
         self.nominalPressure=nominalPressure
         self.btActualPressure=btActualPressure
         self.leakage=leakage
+        self.leakageUnit=leakageUnit
         self.comments=comments
 
         def __repr__(self):
@@ -341,7 +343,7 @@ def btslValveCard(valveNumber):
 
 @app.route('/startRPVI',methods=['GET'])
 def startRPVI():
-    command='C:\\Users\\user\\Documents\\builds\\EfcoDAQ\\releasePressure\\releasePressure.exe'
+    command='C:\\EfcoWebClient\\EfcoDAQ\\releasePressure\\releasePressure.exe'
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     process.wait()
     print process.returncode
@@ -350,7 +352,7 @@ def startRPVI():
 @app.route('/startSLVI',methods=['GET'])
 def startSLVI():
 
-    command='C:\\Users\\user\\Documents\\builds\EfcoDAQ\\seatLeakage\\seatLeakage.exe'
+    command='C:\\EfcoWebClient\\EfcoDAQ\\seatLeakage\\seatLeakage.exe'
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     pid=process.pid
     process.wait()
@@ -358,7 +360,7 @@ def startSLVI():
 
 @app.route('/startBTVI',methods=['GET'])
 def startBTVI():
-    command='C:\\Users\\user\\Documents\\builds\EfcoDAQ\\bodyTest\\bodyTest.exe'
+    command='C:\\EfcoWebClient\\EfcoDAQ\\bodyTest\\bodyTest.exe'
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     pid=process.pid
     process.wait()
@@ -401,12 +403,13 @@ def generateReport():
         nominalPressure=request.form.get('nominalPressure')
         btActualPressure=request.form.get('btActualPressure')
         leakage=float(request.form.get('leakage',0))
+        leakageUnit=str(request.form.get('leakageUnit',""))
         comments=request.form.get('comments')
         valveTR=ValveTestReport(valve_id,dnInlet,dnOutlet,seatPressure,seatDiameter,axMeasurement,\
         dnInletUnit,dnOutletUnit,seatPressureUnit,inspector,testLocation,testMedium,applicationNumber,\
         surveyor,pressureTransducer,certificationNumber,testDate,minimumTolerance,maximumTolerance,\
         targetReleasePressure,actualReleasePressure,slTime,percentageRelease,finalPressure,\
-        btTolerance,btTime,nominalPressure,btActualPressure,leakage,comments)
+        btTolerance,btTime,nominalPressure,btActualPressure,leakage,leakageUnit,comments)
         save(valveTR)
         generateCertificationNumber()
         return jsonify(status_code=200,message="Successfully generated!!",certificationNumber=certificationNumber,valve_type=valve_type)
@@ -429,7 +432,6 @@ def faq():
 def showPreviousReports():
     valveTR=ValveTestReport.query.all()
     for row in valveTR:
-        print row.valve_id
         valve=Valve.query.filter_by(id=row.valve_id).first()
         row.valve_id=valve.valve_id
         row.valve_type=valve.valve_type
